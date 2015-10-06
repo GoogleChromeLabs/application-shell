@@ -1,0 +1,117 @@
+application: app-shell
+version: v20150501
+
+runtime: python27
+api_version: 1
+threadsafe: true
+
+skip_files:
+- node_modules
+- tests
+- src
+
+handlers:
+
+- url: /
+  script: template.app
+  secure: always
+
+- url: /images/(.*)
+  static_files: dist/images/\1
+  expiration: "365d"
+  upload: dist/images/(.*)
+  secure: always
+
+- url: /sw.js
+  static_files: dist/scripts/sw.js
+  expiration: "1s"
+  upload: dist/scripts/sw.js
+  secure: always
+
+- url: /favicon.ico
+  static_files: dist/favicon.ico
+  expiration: "365d"
+  upload: dist/favicon.ico
+  secure: always
+
+- url: /manifest.json
+  static_files: dist/manifest.json
+  expiration: "1s"
+  upload: dist/manifest.json
+  secure: always
+
+- url: /scripts/(.*)
+  static_files: dist/scripts/\1
+  expiration: "1d"
+  upload: dist/scripts/(.*)
+  secure: always
+
+- url: /third_party/(.*)
+  static_files: dist/third_party/\1
+  expiration: "1d"
+  upload: dist/third_party/(.*)
+  secure: always
+
+- url: /styles/(.*)
+  static_files: dist/styles/\1
+  expiration: "1d"
+  upload: dist/styles/(.*)
+  secure: always
+  application_readable: true
+
+- url: /LICENSE
+  static_files: dist/LICENSE
+  expiration: "7d"
+  mime_type: text/plain
+  upload: dist/LICENSE
+  secure: always
+
+- url: /(.*)
+  script: template.app
+  secure: always
+
+- url: /src/(.*)
+  static_files: src/\1
+  upload: src/(.*)
+  secure: always
+
+libraries:
+- name: webapp2
+  version: latest
+- name: jinja2
+  version: latest
+
+pagespeed:
+  disabled_rewriters:
+  - add_instrumentation
+  - CombineJs
+  - ConvertMetaTags
+  - FallbackRewriteCssUrls
+  - FlattenCssImports
+  - FlushSubresources
+  - ImageConvertGifToPng
+  - ImageConvertToJpeg
+  - ImageConvertToWebpLossless
+  - ImageResize
+  - InlineImages
+  - InlineImportToLink
+  - InlinePreviewImages
+  - InsertDnsPrefetch
+  - JsOptimize
+  - LazyloadImages
+  - MinifyCss
+  - MoveCssToHead
+  - ProxyCss
+  - ProxyImages
+  - ProxyJs
+  enabled_rewriters:
+  - CombineCss
+  - InlineCss
+  - WebpOptimization
+  - PrioritizeCriticalCss
+  - ImageJpegSubsampling
+  - ImageProgressiveJpeg
+  - ImageRecompressJpeg
+  - ImageRecompressPng
+  - ImageStripColorProfile
+  - ImageStripMetadata
