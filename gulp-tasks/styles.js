@@ -57,9 +57,7 @@ gulp.task('styles:sass', function() {
     .pipe(sass())
     .pipe(autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(minifyCSS())
-    .pipe(license('Apache', {
-      organization: 'Google Inc. All rights reserved.',
-    }))
+    .pipe(gulpif((typeof GLOBAL.config.license) !== 'undefined', license(GLOBAL.config.license, GLOBAL.config.licenseOptions)))
     .pipe(gulpif(GLOBAL.config.env != 'prod', sourcemaps.write()))
     .pipe(gulp.dest(GLOBAL.config.dest));
 });

@@ -30,7 +30,7 @@ gulp.task('copy:cleanRoot', function(cb) {
     });
 });
 
-gulp.task('copy:root', function() {
+gulp.task('copy:root', ['copy:cleanRoot'], function() {
   return gulp.src([
       GLOBAL.config.src + '/*.{json,txt,ico}',
     ])
@@ -39,7 +39,6 @@ gulp.task('copy:root', function() {
 
 gulp.task('copy', function(cb) {
   runSequence(
-    'copy:cleanRoot',
     'copy:root',
   cb);
 });

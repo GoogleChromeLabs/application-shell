@@ -22,11 +22,16 @@ var runSequence = require('run-sequence');
 // Get tasks from gulp-tasks directory
 require('require-dir')('gulp-tasks');
 
+var projectPackage = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 GLOBAL.config = {
   env: 'prod',
   src: 'src',
   dest: 'dist',
-  version: JSON.parse(fs.readFileSync('./package.json', 'utf8')).version,
+  version: projectPackage.version,
+  license: projectPackage.license,
+  licenseOptions: {
+    organization: 'Google Inc. All rights reserved.',
+  },
 };
 
 var allTasks = ['styles', 'scripts', 'copy', 'html', 'images', 'third_party'];

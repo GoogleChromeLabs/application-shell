@@ -29,6 +29,7 @@ var uglify = require('gulp-uglify');
 var gulpif = require('gulp-if');
 var streamify = require('gulp-streamify');
 var replace = require('gulp-replace');
+var license = require('gulp-license');
 
 gulp.task('scripts:watch', function() {
   gulp.watch(GLOBAL.config.src + '/**/*.es6.js', ['scripts:es6']);
@@ -51,6 +52,7 @@ function compileES6Bundles(browserifyBundles, minify) {
 
       // If this is a production build - minify JS
       .pipe(gulpif(GLOBAL.config.env == 'prod', streamify(uglify())))
+      .pipe(gulpif((typeof GLOBAL.config.license) !== 'undefined', license(GLOBAL.config.license, GLOBAL.config.licenseOptions)))
       .pipe(gulp.dest(bundle.dest));
   });
 }

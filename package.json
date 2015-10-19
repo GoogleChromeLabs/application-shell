@@ -1,7 +1,8 @@
 {
   "name": "app-shell",
-  "version": "0.1.98",
+  "version": "0.1.106",
   "private": true,
+  "license": "Apache",
   "engines": {
     "node": ">=0.10.0"
   },
