@@ -28,10 +28,10 @@ GLOBAL.config = {
   src: 'src',
   dest: 'dist',
   version: projectPackage.version,
-  license: projectPackage.license,
+  license: 'Apache',
   licenseOptions: {
-    organization: 'Google Inc. All rights reserved.',
-  },
+      organization: 'Google Inc. All rights reserved.',
+    },
 };
 
 var allTasks = ['styles', 'scripts', 'copy', 'html', 'images', 'third_party'];

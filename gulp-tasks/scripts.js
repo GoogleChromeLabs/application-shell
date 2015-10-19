@@ -52,7 +52,7 @@ function compileES6Bundles(browserifyBundles, minify) {
 
       // If this is a production build - minify JS
       .pipe(gulpif(GLOBAL.config.env == 'prod', streamify(uglify())))
-      .pipe(gulpif((typeof GLOBAL.config.license) !== 'undefined', license(GLOBAL.config.license, GLOBAL.config.licenseOptions)))
+      .pipe(license(GLOBAL.config.license, GLOBAL.config.licenseOptions))
       .pipe(gulp.dest(bundle.dest));
   });
 }

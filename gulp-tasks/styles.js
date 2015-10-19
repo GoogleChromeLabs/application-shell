@@ -22,8 +22,8 @@ var runSequence = require('run-sequence');
 var minifyCSS = require('gulp-minify-css');
 var autoprefixer = require('gulp-autoprefixer');
 var sass = require('gulp-sass');
-var license = require('gulp-license');
 var sourcemaps = require('gulp-sourcemaps');
+var license = require('gulp-license');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -50,16 +50,18 @@ gulp.task('styles:clean', function(cb) {
 });
 
 gulp.task('styles:sass', function() {
-  return gulp.src(GLOBAL.config.src + '/**/*.scss')
+  var stream = gulp.src(GLOBAL.config.src + '/**/*.scss')
 
     // Only create sourcemaps for dev
     .pipe(gulpif(GLOBAL.config.env != 'prod', sourcemaps.init()))
     .pipe(sass())
     .pipe(autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(minifyCSS())
-    .pipe(gulpif((typeof GLOBAL.config.license) !== 'undefined', license(GLOBAL.config.license, GLOBAL.config.licenseOptions)))
+    .pipe(license(GLOBAL.config.license, GLOBAL.config.licenseOptions))
     .pipe(gulpif(GLOBAL.config.env != 'prod', sourcemaps.write()))
     .pipe(gulp.dest(GLOBAL.config.dest));
+
+  return stream;
 });
 
 gulp.task('styles', function(cb) {
