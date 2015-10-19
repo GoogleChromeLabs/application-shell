@@ -16,30 +16,19 @@
  */
 
 var gulp = require('gulp');
-var fs = require('fs');
 var runSequence = require('run-sequence');
 
-// Get tasks from gulp-tasks directory
-require('require-dir')('gulp-tasks');
+gulp.task('watch', function() {
+  var taskNames = Object.keys(gulp.tasks);
+  var gulpWatchTasks = [];
+  for (var i = 0; i < taskNames.length; i++) {
+    var taskName = taskNames[i];
+    var taskParts = taskName.split(':');
+    if (taskParts.length > 1 &&
+      taskParts[taskParts.length - 1].toLowerCase() === 'watch') {
+      gulpWatchTasks.push(taskName);
+    }
+  }
 
-GLOBAL.config = {
-  env: 'prod',
-  src: 'src',
-  dest: 'dist',
-  version: JSON.parse(fs.readFileSync('./package.json', 'utf8')).version,
-};
-
-var allTasks = ['styles', 'scripts', 'copy', 'html', 'images', 'third_party'];
-
-gulp.task('default', function(cb) {
-  runSequence(
-    'clean',
-    'bump',
-    allTasks,
-    cb);
-});
-
-gulp.task('dev', function() {
-  GLOBAL.config.env = 'dev';
-  return runSequence('clean', allTasks, 'watch');
+  runSequence(gulpWatchTasks);
 });

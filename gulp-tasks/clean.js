@@ -16,30 +16,11 @@
  */
 
 var gulp = require('gulp');
-var fs = require('fs');
-var runSequence = require('run-sequence');
+var del = require('del');
 
-// Get tasks from gulp-tasks directory
-require('require-dir')('gulp-tasks');
-
-GLOBAL.config = {
-  env: 'prod',
-  src: 'src',
-  dest: 'dist',
-  version: JSON.parse(fs.readFileSync('./package.json', 'utf8')).version,
-};
-
-var allTasks = ['styles', 'scripts', 'copy', 'html', 'images', 'third_party'];
-
-gulp.task('default', function(cb) {
-  runSequence(
-    'clean',
-    'bump',
-    allTasks,
-    cb);
-});
-
-gulp.task('dev', function() {
-  GLOBAL.config.env = 'dev';
-  return runSequence('clean', allTasks, 'watch');
+gulp.task('clean', function(cb) {
+  del([GLOBAL.config.dest], {dot: true})
+    .then(function() {
+      cb();
+    });
 });

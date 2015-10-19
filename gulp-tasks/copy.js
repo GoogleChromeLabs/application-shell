@@ -16,30 +16,30 @@
  */
 
 var gulp = require('gulp');
-var fs = require('fs');
 var runSequence = require('run-sequence');
+var del = require('del');
 
-// Get tasks from gulp-tasks directory
-require('require-dir')('gulp-tasks');
-
-GLOBAL.config = {
-  env: 'prod',
-  src: 'src',
-  dest: 'dist',
-  version: JSON.parse(fs.readFileSync('./package.json', 'utf8')).version,
-};
-
-var allTasks = ['styles', 'scripts', 'copy', 'html', 'images', 'third_party'];
-
-gulp.task('default', function(cb) {
-  runSequence(
-    'clean',
-    'bump',
-    allTasks,
-    cb);
+gulp.task('copy:watch', function() {
+  gulp.watch(GLOBAL.config.src + '/*.*', ['copy:root']);
 });
 
-gulp.task('dev', function() {
-  GLOBAL.config.env = 'dev';
-  return runSequence('clean', allTasks, 'watch');
+gulp.task('copy:cleanRoot', function(cb) {
+  del([GLOBAL.config.dest + '/*.{json,txt,ico}'], {dot: true})
+    .then(function() {
+      cb();
+    });
+});
+
+gulp.task('copy:root', function() {
+  return gulp.src([
+      GLOBAL.config.src + '/*.{json,txt,ico}',
+    ])
+    .pipe(gulp.dest(GLOBAL.config.dest));
+});
+
+gulp.task('copy', function(cb) {
+  runSequence(
+    'copy:cleanRoot',
+    'copy:root',
+  cb);
 });
