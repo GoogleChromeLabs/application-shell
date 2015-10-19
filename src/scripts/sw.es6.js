@@ -20,9 +20,7 @@ var CACHE_NAME = 'appshell';
 var CACHE_VERSION = '@VERSION@';
 
 self.oninstall = function(event) {
-
   var urls = [
-
     '/',
     '/images/chrome-touch-icon-192x192.png',
 
@@ -43,7 +41,6 @@ self.oninstall = function(event) {
 
     '/favicon.ico',
     '/manifest.json'
-
   ];
 
   urls = urls.map(function(url) {
@@ -57,31 +54,26 @@ self.oninstall = function(event) {
         return cache.addAll(urls);
       })
   );
-
 };
 
 self.onactivate = function(event) {
-
   var currentCacheName = CACHE_NAME + '-v' + CACHE_VERSION;
   caches.keys().then(function(cacheNames) {
-
     return Promise.all(
       cacheNames.map(function(cacheName) {
-        if (cacheName.indexOf(CACHE_NAME) == -1) {
+        if (cacheName.indexOf(CACHE_NAME) === -1) {
           return;
         }
 
-        if (cacheName != currentCacheName) {
+        if (cacheName !== currentCacheName) {
           return caches.delete(cacheName);
         }
       })
     );
   });
-
 };
 
 self.onfetch = function(event) {
-
   var request = event.request;
   var url = new URL(request.url);
   var validSubsections = [
@@ -94,19 +86,21 @@ self.onfetch = function(event) {
 
     // Check the cache for a hit.
     caches.match(request).then(function(response) {
-
       // If we have a response return it.
-      if (response)
+      if (response) {
         return response;
+      }
 
       // Otherwise return index.html file.
-      if (validSubsections.indexOf(subsection) >= 0)
+      if (validSubsections.indexOf(subsection) >= 0) {
         return caches.match('/');
+      }
 
       // We may get requests for analytics so
       // do a very dumb check for that.
-      if (url.host.indexOf('voice') === -1)
+      if (url.host.indexOf('voice') === -1) {
         return fetch(request);
+      }
 
       // And worst case we fire out a not found.
       return new Response('Sorry, not found');
