@@ -36,9 +36,6 @@ self.oninstall = function(event) {
     '/styles/core.css',
     '/styles/list.css',
 
-    '/third_party/Roboto/Roboto-400.woff',
-    '/third_party/Roboto/Roboto-500.woff',
-
     '/favicon.ico',
     '/manifest.json'
   ];

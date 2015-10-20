@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>App Shell</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta id="theme-color" name="theme-color" content="#4527A0">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/images/chrome-touch-icon-192x192.png" sizes="192x192" type="image/png">
+
+    {{#each inlineStyles}}
+    <!-- TODO: Inline these styles -->
+    <link rel="stylesheet" type="text/css" href="{{this}}">
+    {{~/each}}
+</head>
+<body>
+
+  <header class="header">
+      <button tabindex="-1" class="header__menu js-toggle-menu">
+        Toggle nav menu
+      </button>
+
+      <h1 class="header__title">App shell</h1>
+  </header>
+
+  <main class="main js-main" aria-role="main">
+    {{{body}}}
+  </main>
+
+  <section class="side-nav js-side-nav">
+    <div class="side-nav__content js-side-nav-content">
+      <div class="side-nav__header">
+        <h1 class="side-nav__title">App shell</h1>
+      </div>
+
+      <div class="side-nav__body">
+        <a tabindex="-1" class="side-nav__blog-post" href="/">Index</a>
+        <a tabindex="-1" class="side-nav__blog-post" href="/url-1">URL 1</a>
+        <a tabindex="-1" class="side-nav__blog-post" href="/url-2">URL 2</a>
+      </div>
+
+      <div class="side-nav__version">Version @VERSION@</div>
+    </div>
+  </section>
+
+  {{#each remoteScripts}}
+  <script src="{{this}}" async></script>
+  {{~/each}}
+</body>
+</html>
