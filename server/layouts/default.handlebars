@@ -11,10 +11,7 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/images/chrome-touch-icon-192x192.png" sizes="192x192" type="image/png">
 
-    {{#each inlineStyles}}
-    <!-- TODO: Inline these styles -->
-    <link rel="stylesheet" type="text/css" href="{{this}}">
-    {{~/each}}
+    <style>{{{inlineStyles}}}</style>
 </head>
 <body>
 
