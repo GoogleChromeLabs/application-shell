@@ -20,6 +20,7 @@ import NavDrawerView from './../view/NavDrawerView';
 import AppModel from '../model/AppModel';
 // import toasterInstance from '../libs/Toaster';
 import routerInstance from '../libs/Router';
+import pubSubInstance from '../libs/PubSub';
 
 export default class AppController extends Controller {
 
@@ -46,6 +47,8 @@ export default class AppController extends Controller {
               () => this.hide());
           });
 
+        console.log(appModel);
+
         this.appModel = appModel;
 
         if (appModel === undefined) {
@@ -68,5 +71,19 @@ export default class AppController extends Controller {
             showWaitAnimation);
         });
       });
+  }
+
+  show() {
+    // this.sideNavToggleButton.tabIndex = 1;
+    // this.newappshellingButton.tabIndex = 2;
+  }
+
+  hide() {
+    // this.sideNavToggleButton.tabIndex = -1;
+    // this.newappshellingButton.tabIndex = -1;
+
+    pubSubInstance().then(ps => {
+      ps.pub('list-covered');
+    });
   }
 }

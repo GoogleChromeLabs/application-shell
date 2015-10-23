@@ -83,12 +83,15 @@ self.onfetch = function(event) {
       // For other requests on our domain, return the app shell
       var url = new URL(request.url);
       if (url.host === this.location.host) {
-        console.log('    sw: For ' + url.pathname + ' returning /app-shell');
-        return caches.match('/app-shell');
+        if (url.pathname.indexOf('.') === -1) {
+          console.log('    sw: For ' + url.pathname + ' returning /app-shell');
+          return caches.match('/app-shell');
+        }
       }
 
       // If here, then it should be a request for external url
       // analytics and web fonts for example.
+      console.log('    sw: fetching ' + request.url);
       return fetch(request);
     })
   );
