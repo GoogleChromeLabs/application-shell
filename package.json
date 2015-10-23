@@ -1,6 +1,6 @@
 {
   "name": "app-shell",
-  "version": "0.1.151",
+  "version": "0.1.154",
   "private": true,
   "license": "Apache",
   "engines": {
@@ -9,6 +9,7 @@
   "devDependencies": {
     "babelify": "^6.3.0",
     "browserify": "^11.2.0",
+    "estraverse": "latest",
     "del": "^2.0.2",
     "express": "^4.13.3",
     "express-handlebars": "^2.0.1",
