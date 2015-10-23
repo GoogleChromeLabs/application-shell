@@ -75,7 +75,7 @@ self.onfetch = function(event) {
   event.respondWith(
     // Check the cache for a hit of the asset as is.
     caches.match(request).then((response) => {
-      console.log('    sw: For ' + url.pathname + ' returning /app-shell');
+      console.log('    sw.fetch: ' + request.url);
       // If we have a response return it.
       if (response) {
         return response;
