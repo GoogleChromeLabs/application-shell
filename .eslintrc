@@ -14,7 +14,7 @@
             2
         ],
         "key-spacing": [2, {"beforeColon": false, "afterColon": true}],
-        "max-len": [2, 80, 2, {"ignoreUrls": true}],
+        "max-len": [2, 80, 2],
         "new-cap": 2,
         "no-console": 0,
         "no-else-return": 2,
@@ -46,7 +46,7 @@
         "browser": true,
         "node": true
     },
-    "extends": "eslint:recommended",
+  "extends": "eslint:recommended",
   "globals": {
     "importScripts": true
   }

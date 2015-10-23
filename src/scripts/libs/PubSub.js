@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-export default function PubSubInstance () {
-
-  if (typeof window.PubSubInstance_ !== 'undefined')
+export default function PubSubInstance() {
+  if (typeof window.PubSubInstance_ !== 'undefined') {
     return Promise.resolve(window.PubSubInstance_);
+  }
 
   window.PubSubInstance_ = new PubSub();
 
@@ -26,40 +26,40 @@ export default function PubSubInstance () {
 }
 
 class PubSub {
-
-  constructor () {
+  constructor() {
     this.subs = {};
   }
 
-  sub (name, callback) {
-
-    if (!this.subs[name])
+  sub(name, callback) {
+    if (!this.subs[name]) {
       this.subs[name] = [];
+    }
 
     this.subs[name].push(callback);
   }
 
-  unsub (name, callback) {
-
-    if (!this.subs[name])
+  unsub(name, callback) {
+    if (!this.subs[name]) {
       return;
+    }
 
     var index = this.subs.indexOf(callback);
 
-    if (index === -1)
+    if (index === -1) {
       return;
+    }
 
     this.subs.splice(index, 1);
   }
 
-  pub (name, message) {
-
-    if (!this.subs[name])
+  pub(name, message) {
+    if (!this.subs[name]) {
       return;
+    }
 
     this.subs[name].forEach(subscriber => {
       subscriber(message);
-    })
+    });
   }
 
 }

@@ -16,25 +16,18 @@
  */
 
 import Controller from './Controller';
+import NavDrawerView from './../view/NavDrawerView';
 
-export default class ListController extends Controller {
+export default class StaticPageController extends Controller {
 
   constructor() {
     super();
 
-    this.ctaView = document.querySelector('.js-cta');
-    this.view = document.querySelector('.js-list-view');
+    this.navDrawer = new NavDrawerView();
 
-    Promise.all([
-      this.loadCSS('/styles/list.css')
-    ])
-    .then( () => {
-      this.getContentAndPopulate();
+    this.sideNavToggleButton = document.querySelector('.js-toggle-menu');
+    this.sideNavToggleButton.addEventListener('click', () => {
+      this.navDrawer.toggle();
     });
-  }
-
-  getContentAndPopulate() {
-    console.log('Get content and populate');
-    this.ctaView.classList.add('empty-set-cta--visible');
   }
 }

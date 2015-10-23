@@ -1,6 +1,6 @@
 {
   "name": "app-shell",
-  "version": "0.1.120",
+  "version": "0.1.150",
   "private": true,
   "license": "Apache",
   "engines": {
@@ -10,6 +10,8 @@
     "babelify": "^6.3.0",
     "browserify": "^11.2.0",
     "del": "^2.0.2",
+    "express": "^4.13.3",
+    "express-handlebars": "^2.0.1",
     "glob": "^5.0.15",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
@@ -20,6 +22,7 @@
     "gulp-license": "^1.0.0",
     "gulp-minify-css": "^1.2.1",
     "gulp-minify-html": "^1.0.4",
+    "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
     "gulp-sass": "^2.0.4",
     "gulp-sourcemaps": "^1.6.0",

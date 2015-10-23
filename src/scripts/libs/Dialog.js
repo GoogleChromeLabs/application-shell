@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-export default function DialogInstance () {
-
-  if (typeof window.DialogInstance_ !== 'undefined')
+export default function DialogInstance() {
+  if (typeof window.DialogInstance_ !== 'undefined') {
     return Promise.resolve(window.DialogInstance_);
+  }
 
   window.DialogInstance_ = new Dialog();
 
@@ -27,7 +27,7 @@ export default function DialogInstance () {
 
 class Dialog {
 
-  constructor () {
+  constructor() {
     this.view = document.querySelector('.js-dialog');
     this.title = this.view.querySelector('.js-title');
     this.message = this.view.querySelector('.js-message');
@@ -35,39 +35,36 @@ class Dialog {
     this.okayButton = this.view.querySelector('.js-okay');
   }
 
-  show (title, message, hideCancel) {
-
+  show(title, message, hideCancel) {
     this.title.textContent = title;
     this.message.textContent = message;
     this.view.classList.add('dialog-view--visible');
 
-    if (hideCancel)
+    if (hideCancel) {
       this.cancelButton.classList.add('hidden');
-    else
+    } else {
       this.cancelButton.classList.remove('hidden');
+    }
 
     return new Promise((resolve, reject) => {
-
       var removeEventListenersAndHide = () => {
         this.cancelButton.removeEventListener('click', onCancel);
         this.okayButton.removeEventListener('click', onOkay);
         this.view.classList.remove('dialog-view--visible');
-      }
+      };
 
       var onCancel = (e) => {
         removeEventListenersAndHide();
         reject();
-      }
+      };
 
       var onOkay = (e) => {
         removeEventListenersAndHide();
         resolve();
-      }
+      };
 
       this.cancelButton.addEventListener('click', onCancel);
       this.okayButton.addEventListener('click', onOkay);
-
     });
   }
-
 }

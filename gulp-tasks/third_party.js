@@ -23,5 +23,5 @@ gulp.task('third_party:watch', function() {
 
 gulp.task('third_party', function() {
   gulp.src(GLOBAL.config.src + '/third_party/**/*.*')
-    .pipe(gulp.dest(GLOBAL.config.dest + '/third_party'))
+    .pipe(gulp.dest(GLOBAL.config.dest + '/third_party'));
 });

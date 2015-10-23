@@ -34,7 +34,7 @@ var AUTOPREFIXER_BROWSERS = [
   'opera >= 23',
   'ios >= 7',
   'android >= 4.4',
-  'bb >= 10',
+  'bb >= 10'
 ];
 
 gulp.task('styles:watch', function() {
@@ -53,12 +53,12 @@ gulp.task('styles:sass', function() {
   var stream = gulp.src(GLOBAL.config.src + '/**/*.scss')
 
     // Only create sourcemaps for dev
-    .pipe(gulpif(GLOBAL.config.env != 'prod', sourcemaps.init()))
+    .pipe(gulpif(GLOBAL.config.env !== 'prod', sourcemaps.init()))
     .pipe(sass())
     .pipe(autoprefixer(AUTOPREFIXER_BROWSERS))
-    .pipe(minifyCSS())
+    .pipe(gulpif(GLOBAL.config.env === 'prod', minifyCSS()))
     .pipe(license(GLOBAL.config.license, GLOBAL.config.licenseOptions))
-    .pipe(gulpif(GLOBAL.config.env != 'prod', sourcemaps.write()))
+    .pipe(gulpif(GLOBAL.config.env !== 'prod', sourcemaps.write()))
     .pipe(gulp.dest(GLOBAL.config.dest));
 
   return stream;

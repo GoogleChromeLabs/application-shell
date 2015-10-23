@@ -88,20 +88,6 @@ button::-moz-focus-inner {
   border: 0;
 }
 
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Roboto'), local('Roboto-Regular'), url(/third_party/Roboto/Roboto-400.woff) format('woff');
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 500;
-  src: local('Roboto Medium'), local('Roboto-Medium'), url(/third_party/Roboto/Roboto-500.woff) format('woff');
-}
-
 @media(min-width: 600px) {
   .view-underpanel {
     top: 0;
