@@ -16,12 +16,10 @@
  */
 
 import Controller from './Controller';
-import RouterInstance from '../libs/Router';
-import PubSubInstance from '../libs/PubSub';
 
 export default class ListController extends Controller {
 
-  constructor () {
+  constructor() {
     super();
 
     this.ctaView = document.querySelector('.js-cta');
@@ -35,7 +33,7 @@ export default class ListController extends Controller {
     });
   }
 
-  getContentAndPopulate () {
+  getContentAndPopulate() {
     console.log('Get content and populate');
     this.ctaView.classList.add('empty-set-cta--visible');
   }

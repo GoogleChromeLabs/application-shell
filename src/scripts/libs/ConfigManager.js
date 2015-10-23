@@ -17,10 +17,10 @@
 
 import Config from '../config/Config';
 
-export default function ConfigManagerInstance () {
-
-  if (typeof window.ConfigManagerInstance_ !== 'undefined')
+export default function ConfigManagerInstance() {
+  if (typeof window.ConfigManagerInstance_ !== 'undefined') {
     return Promise.resolve(window.ConfigManagerInstance_);
+  }
 
   window.ConfigManagerInstance_ = new ConfigManager();
 
@@ -29,19 +29,19 @@ export default function ConfigManagerInstance () {
 
 class ConfigManager {
 
-  constructor () {
+  constructor() {
     this.config = Config;
   }
 
-  set config (c) {
+  set config(c) {
     this.config_ = c;
   }
 
-  get config () {
+  get config() {
     return this.config_;
   }
 
-  getStore (storeName) {
+  getStore(storeName) {
     return this.config_.stores[storeName];
   }
 

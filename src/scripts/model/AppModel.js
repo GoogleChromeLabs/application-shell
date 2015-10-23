@@ -18,20 +18,18 @@
 import Model from './Model';
 
 export default class AppModel extends Model {
-
-  constructor (data, key) {
-
+  constructor(data, key) {
     super(key);
 
     this.firstRun = true;
     this.preferences = {};
   }
 
-  static get UPDATED () {
+  static get UPDATED() {
     return 'AppModel-updated';
   }
 
-  static get storeName () {
+  static get storeName() {
     return 'AppModel';
   }
 

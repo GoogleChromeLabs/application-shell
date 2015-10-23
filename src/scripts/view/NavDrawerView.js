@@ -2,7 +2,8 @@ export default class NavDrawerView {
 
   constructor() {
     this.rootElement = document.querySelector('.js-side-nav');
-    this.sideNavContent = this.rootElement.querySelector('.js-side-nav-content');
+    this.sideNavContent = this.rootElement
+      .querySelector('.js-side-nav-content');
 
     var touchStartX;
     var sideNavTransform;

@@ -92,9 +92,9 @@ function generateES6Bundles(srcPath) {
 }
 
 gulp.task('scripts:eslint', function() {
-  return gulp.src([GLOBAL.config.src + '/**/*.es6.js'])
+  return gulp.src([GLOBAL.config.src + '/**/*.js'])
 
-    // eslint() attaches the lint output to the eslint property
+    // eslint() attaches the lint output to the eslint property,
     // of the file object so it can be used by other modules.
     .pipe(eslint())
 
@@ -107,14 +107,13 @@ gulp.task('scripts:eslint', function() {
     .pipe(eslint.failOnError());
 });
 
-gulp.task('scripts:es6', ['scripts:eslint'], function(cb) {
+gulp.task('scripts:es6', function(cb) {
   generateES6Bundles(GLOBAL.config.src);
 
   cb();
 });
 
-// TODO: Add linting for es5 JS
-gulp.task('scripts:es5', [], function() {
+gulp.task('scripts:es5', function() {
   return gulp.src([GLOBAL.config.src + '/**/*.es5.js'])
     .pipe(gulpif(GLOBAL.config.env !== 'prod', sourcemaps.init()))
 
@@ -142,7 +141,10 @@ gulp.task('scripts:clean', function(cb) {
 
 gulp.task('scripts', function(cb) {
   runSequence(
-    'scripts:clean',
+    [
+      'scripts:clean',
+      'scripts:eslint'
+    ],
     [
       'scripts:es6',
       'scripts:es5'
