@@ -12,13 +12,17 @@ function prepareData(config) {
   var flattenedStyles = '';
   var pathPrefix = '/../../dist/';
   config.inlineStyles.forEach(function(file) {
-    flattenedStyles += fs.readFileSync(path.resolve(__dirname) + pathPrefix + file);
+    flattenedStyles += fs.readFileSync(path.resolve(__dirname) +
+      pathPrefix + file);
   });
+
   // Replace array with flattened string of content
   config.inlineStyles = flattenedStyles;
   return config;
-};
+}
 
+// This method looks at the request path and renders the appropriate handlebars
+// template
 StaticPageController.prototype.onRequest = function(req, res) {
   switch (req.path) {
   case '/':
