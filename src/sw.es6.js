@@ -75,9 +75,9 @@ self.onfetch = function(event) {
   event.respondWith(
     // Check the cache for a hit of the asset as is.
     caches.match(request).then((response) => {
-      console.log('    sw.fetch: ' + request.url);
       // If we have a response return it.
       if (response) {
+        console.log('    sw: [cached] ' + request.url);
         return response;
       }
 
@@ -85,14 +85,14 @@ self.onfetch = function(event) {
       var url = new URL(request.url);
       if (url.host === this.location.host) {
         if (url.pathname.indexOf('.') === -1) {
-          console.log('    sw: For ' + url.pathname + ' returning /app-shell');
+          console.log('    sw: [app-shell redirect] ' + request.url);
           return caches.match('/app-shell');
         }
       }
 
       // If here, then it should be a request for external url
       // analytics and web fonts for example.
-      console.log('    sw: fetching ' + request.url);
+      console.log('    sw: [fetch] ' + request.url);
       return fetch(request);
     })
   );
