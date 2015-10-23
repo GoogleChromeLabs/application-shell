@@ -13,5 +13,7 @@
 
 var serverController = require('./controllers/server-controller');
 var StaticPageController = require('./controllers/static-page-controller');
+var AppShellController = require('./controllers/app-shell-controller');
 
+serverController.addEndpoint('/app-shell', new AppShellController());
 serverController.addEndpoint('/*', new StaticPageController());

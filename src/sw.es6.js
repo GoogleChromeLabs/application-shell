@@ -21,7 +21,7 @@ var CACHE_VERSION = '@VERSION@';
 
 self.oninstall = function(event) {
   var urls = [
-    '/',
+    '/app-shell',
     '/images/chrome-touch-icon-192x192.png',
 
     '/images/side-nav-bg@2x.jpg',
@@ -72,35 +72,24 @@ self.onactivate = function(event) {
 
 self.onfetch = function(event) {
   var request = event.request;
-  var url = new URL(request.url);
-  var validSubsections = [
-    'create', 'details', 'edit', ''
-  ];
-
-  var subsection = /^\/([^\/]*)/.exec(url.pathname)[1];
-
   event.respondWith(
-
-    // Check the cache for a hit.
-    caches.match(request).then(function(response) {
+    // Check the cache for a hit of the asset as is.
+    caches.match(request).then((response) => {
       // If we have a response return it.
       if (response) {
         return response;
       }
 
-      // Otherwise return index.html file.
-      if (validSubsections.indexOf(subsection) >= 0) {
-        return caches.match('/');
+      // For other requests on our domain, return the app shell
+      var url = new URL(request.url);
+      if (url.host === this.location.host) {
+        console.log('    sw: For ' + url.pathname + ' returning /app-shell');
+        return caches.match('/app-shell');
       }
 
-      // We may get requests for analytics so
-      // do a very dumb check for that.
-      if (url.host.indexOf('voice') === -1) {
-        return fetch(request);
-      }
-
-      // And worst case we fire out a not found.
-      return new Response('Sorry, not found');
+      // If here, then it should be a request for external url
+      // analytics and web fonts for example.
+      return fetch(request);
     })
   );
 };
