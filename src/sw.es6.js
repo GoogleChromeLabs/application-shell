@@ -58,6 +58,8 @@ self.onactivate = function(event) {
   caches.keys().then(function(cacheNames) {
     return Promise.all(
       cacheNames.map(function(cacheName) {
+        // TODO: This should never get called
+        // can we drop this check?
         if (cacheName.indexOf(CACHE_NAME) === -1) {
           return;
         }
@@ -91,7 +93,7 @@ self.onfetch = function(event) {
       }
 
       // If here, then it should be a request for external url
-      // analytics and web fonts for example.
+      // analytics or web fonts for example.
       console.log('    sw: [fetch] ' + request.url);
       return fetch(request);
     })
