@@ -39,7 +39,12 @@
         "space-before-function-paren": [2, "never"],
         "spaced-comment": 2,
         "valid-typeof": 2,
-        "no-unused-vars": [2, {"args": "none"}]
+        "no-unused-vars": [2, {"args": "none"}],
+        "no-empty-class": 0,
+        "no-extra-strict": 0,
+        "no-reserved-keys": 0,
+        "no-space-before-semi": 0,
+        "no-wrap-func": 0
     },
     "env": {
         "es6": true,

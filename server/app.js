@@ -13,7 +13,9 @@
 
 var serverController = require('./controllers/server-controller');
 var StaticPageController = require('./controllers/static-page-controller');
-var AppShellController = require('./controllers/app-shell-controller');
+var PartialsController = require('./controllers/partials-controller');
 
-serverController.addEndpoint('/app-shell', new AppShellController());
+// PartialsController serves up the HTML without any HTML body or head
+serverController.addEndpoint('/partials*', new PartialsController());
+// The static page controller serves the basic form of the pages
 serverController.addEndpoint('/*', new StaticPageController());

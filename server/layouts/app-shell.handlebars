@@ -33,6 +33,7 @@ limitations under the License.
 </head>
 <body class="{{ deeplink_class }}">
 
+  <!-- Header element -->
   <header class="header">
       <button tabindex="-1" class="header__menu js-toggle-menu">
         Toggle nav menu
@@ -41,36 +42,10 @@ limitations under the License.
       <h1 class="header__title">App Shell</h1>
   </header>
 
-  <main class="main js-main" aria-role="main">
-    
-  </main>
+  <!-- Main Content goes here -->
+  <main class="main js-global-main" aria-role="main"></main>
 
-  <aside class="empty-set-cta js-cta">
-    <span style="margin-top: 16px;">Sup!</span>
-  </aside>
-
-  <!-- The panel to sit beneath all other panels -->
-  <div class="view-underpanel js-underpanel">
-    <div class="view-underpanel__block"></div>
-  </div>
-
-  <section class="hidden appshell-view js-appshell-view">
-    <div class="appshell-view__panel">
-      <div class="appshell-view__panel-title">This is a dialog</div>
-      <div class="appshell-view__panel-mic">
-        <canvas class="appshell-view__volume-readout js-volume-readout"></canvas>
-      </div>
-
-      <button tabindex="-1" class="appshell-view__appshell-start-btn js-appshell-start-btn">appshell</button>
-      <button tabindex="-1" class="appshell-view__appshell-stop-btn js-appshell-stop-btn" disabled>Stop appshelling</button>
-
-      <p class="appshell-view__warning">This is some lorem ipsum text.</p>
-
-      <button tabindex="-1" class="appshell-view__appshell-cancel-btn js-appshell-cancel-btn">Cancel</button>
-
-    </div>
-  </section>
-
+  <!-- Navigation Drawer -->
   <section class="side-nav js-side-nav">
     <div class="side-nav__content js-side-nav-content">
       <div class="side-nav__header">
@@ -87,17 +62,8 @@ limitations under the License.
     </div>
   </section>
 
-  <aside class="toast-view"></aside>
-
-  <div class="edit-view__circular-reveal-container">
-    <div class="edit-view__circular-reveal edit-view__circular-reveal--collapsed js-circular-reveal"></div>
-  </div>
-
-  <button tabindex="-1" class="new-appshelling-btn js-new-appshelling-btn">
-    New appshelling
-  </button>
-
-  <div class="loader">
+  <!-- Loading Dialog For use by Activities -->
+  <div class="loader js-global-loader is-hidden">
     <svg viewBox="0 0 32 32" width="32" height="32">
       <style>
         #spinner {

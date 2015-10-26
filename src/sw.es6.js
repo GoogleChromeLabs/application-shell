@@ -86,7 +86,11 @@ self.onfetch = function(event) {
       // For other requests on our domain, return the app shell
       var url = new URL(request.url);
       if (url.host === this.location.host) {
-        if (url.pathname.indexOf('.') === -1) {
+        console.log('Pathname: ' + url.pathname);
+        if (
+          url.pathname.indexOf('.') === -1 &&
+          url.pathname.indexOf('/partials') !== 0
+        ) {
           console.log('    sw: [app-shell redirect] ' + request.url);
           return caches.match('/app-shell');
         }
