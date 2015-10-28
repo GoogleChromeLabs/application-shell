@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-@import 'core/_colors';
-@import 'core/_card';
-@import 'core/_core';
-@import 'core/_dialog';
-@import 'core/_side-nav';
-@import 'core/_main';
-@import 'core/_header';
-@import 'core/_loader';
-@import 'core/_z-index';
-@import 'core/_toast';
+.card {
+  padding: 16px;
+  position: relative;
+  position: relative;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 2px;
+  margin: 16px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+}
