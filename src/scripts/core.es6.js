@@ -15,6 +15,6 @@
  *
  */
 
-import AppController from './controller/AppController';
+import ApplicationController from './controller/ApplicationController';
 
-new AppController();
+new ApplicationController();

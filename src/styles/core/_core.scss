@@ -36,24 +36,12 @@ html {
 }
 
 body {
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-flex-wrap: nowrap;
-      -ms-flex-wrap: nowrap;
-          flex-wrap: nowrap;
-  -webkit-justify-content: flex-start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-align-items: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
-  -ms-flex-line-pack: stretch;
-      -webkit-align-content: stretch;
-          align-content: stretch;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
   background: #ececec;
 }
 
@@ -80,7 +68,7 @@ a {
   color: $secondary;
 }
 
-.hidden {
+.is-hidden {
   display: none;
 }
 
@@ -152,8 +140,6 @@ button::-moz-focus-inner {
     width: 504px;
     left: 8px;
     transform: translateY(50px);
-    transition: -webkit-transform 0.233s cubic-bezier(0,0,0.21,1) 0.04s,
-      opacity 0.213s cubic-bezier(0,0,0.21,1) 0.04s;
     transition: transform 0.233s cubic-bezier(0,0,0.21,1) 0.04s,
       opacity 0.213s cubic-bezier(0,0,0.21,1) 0.04s;
 

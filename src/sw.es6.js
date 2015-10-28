@@ -21,7 +21,7 @@ var CACHE_VERSION = '@VERSION@';
 
 self.oninstall = function(event) {
   var urls = [
-    '/',
+    '/app-shell',
     '/images/chrome-touch-icon-192x192.png',
 
     '/images/side-nav-bg@2x.jpg',
@@ -31,10 +31,7 @@ self.oninstall = function(event) {
     '/images/ic_info_outline_24px.svg',
 
     '/scripts/core.js',
-    '/scripts/list.js',
-
     '/styles/core.css',
-    '/styles/list.css',
 
     '/favicon.ico',
     '/manifest.json'
@@ -58,6 +55,8 @@ self.onactivate = function(event) {
   caches.keys().then(function(cacheNames) {
     return Promise.all(
       cacheNames.map(function(cacheName) {
+        // TODO: This should never get called
+        // can we drop this check?
         if (cacheName.indexOf(CACHE_NAME) === -1) {
           return;
         }
@@ -72,35 +71,32 @@ self.onactivate = function(event) {
 
 self.onfetch = function(event) {
   var request = event.request;
-  var url = new URL(request.url);
-  var validSubsections = [
-    'create', 'details', 'edit', ''
-  ];
-
-  var subsection = /^\/([^\/]*)/.exec(url.pathname)[1];
-
   event.respondWith(
-
-    // Check the cache for a hit.
-    caches.match(request).then(function(response) {
+    // Check the cache for a hit of the asset as is.
+    caches.match(request).then((response) => {
       // If we have a response return it.
       if (response) {
+        console.log('    sw: [cached] ' + request.url);
         return response;
       }
 
-      // Otherwise return index.html file.
-      if (validSubsections.indexOf(subsection) >= 0) {
-        return caches.match('/');
+      // For other requests on our domain, return the app shell
+      var url = new URL(request.url);
+      if (url.host === this.location.host) {
+        console.log('Pathname: ' + url.pathname);
+        if (
+          url.pathname.indexOf('.') === -1 &&
+          url.pathname.indexOf('/partials') !== 0
+        ) {
+          console.log('    sw: [app-shell redirect] ' + request.url);
+          return caches.match('/app-shell');
+        }
       }
 
-      // We may get requests for analytics so
-      // do a very dumb check for that.
-      if (url.host.indexOf('voice') === -1) {
-        return fetch(request);
-      }
-
-      // And worst case we fire out a not found.
-      return new Response('Sorry, not found');
+      // If here, then it should be a request for external url
+      // analytics or web fonts for example.
+      console.log('    sw: [fetch] ' + request.url);
+      return fetch(request);
     })
   );
 };

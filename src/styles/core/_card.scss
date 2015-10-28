@@ -15,26 +15,13 @@
  * limitations under the License.
  */
 
-import Controller from './Controller';
-
-export default class ListController extends Controller {
-
-  constructor() {
-    super();
-
-    this.ctaView = document.querySelector('.js-cta');
-    this.view = document.querySelector('.js-list-view');
-
-    Promise.all([
-      this.loadCSS('/styles/list.css')
-    ])
-    .then( () => {
-      this.getContentAndPopulate();
-    });
-  }
-
-  getContentAndPopulate() {
-    console.log('Get content and populate');
-    this.ctaView.classList.add('empty-set-cta--visible');
-  }
+.card {
+  padding: 16px;
+  position: relative;
+  position: relative;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 2px;
+  margin: 16px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
 }

@@ -17,8 +17,10 @@
 
 export default class Controller {
 
-  constructor() {
-    this.registerServiceWorker();
+  constructor(registerServiceWorker = true) {
+    if (registerServiceWorker) {
+      this.registerServiceWorker();
+    }
   }
 
   registerServiceWorker() {
