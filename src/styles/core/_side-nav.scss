@@ -50,7 +50,6 @@
   width: 304px;
   height: 100%;
   overflow: hidden;
-  outline: none;
 
   box-shadow: 0 0 4px rgba(0, 0, 0, .14),
       0 4px 8px rgba(0, 0, 0, .28);
@@ -59,6 +58,7 @@
   -webkit-transform: translateX(-102%);
           transform: translateX(-102%);
 }
+
 
 .side-nav__content--animatable {
   transition: -webkit-transform 0.233s cubic-bezier(0,0,0.21,1);
@@ -122,6 +122,11 @@
   background-image: url(/images/ic_info_outline_24px.svg);
   line-height: 48px;
   text-decoration: none;
+}
+
+.side-nav__blog-post:focus {
+  background-color: #eee;
+  outline: 0;
 }
 
 .side-nav__file-bug-report {
