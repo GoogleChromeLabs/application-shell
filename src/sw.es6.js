@@ -31,10 +31,7 @@ self.oninstall = function(event) {
     '/images/ic_info_outline_24px.svg',
 
     '/scripts/core.js',
-    '/scripts/list.js',
-
     '/styles/core.css',
-    '/styles/list.css',
 
     '/favicon.ico',
     '/manifest.json'
