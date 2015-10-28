@@ -134,3 +134,8 @@
   line-height: 48px;
   text-decoration: none;
 }
+
+.side-nav__blog-post.active {
+  font-weight: bold;
+  background-color: rgba(0,0,0,.05);
+}

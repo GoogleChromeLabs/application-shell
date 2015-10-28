@@ -14,6 +14,8 @@ export default class ActivityController {
     // Show loading dialog while we get content
     this.loader.classList.remove('is-hidden');
 
+    this.updateNavDrawer(path);
+
     fetch('/partials' + path)
       .then((response) => {
         if (response.status === 404) {
@@ -60,5 +62,18 @@ export default class ActivityController {
     paragraphElement.textContent = 'There was a problem displaying this page ' +
       ', sorry about that.';
     this.mainContainer.appendChild(paragraphElement);
+  }
+
+  updateNavDrawer(path) {
+    var nodeList = document.querySelectorAll('.side-nav__body a');
+    [].forEach.call(nodeList, function(el) {
+      // Reset active states
+      el.classList.remove('active');
+      // We could compare against path, but easier to compare
+      // against the current document href
+      if (el.href === document.location.href) {
+        el.classList.add('active');
+      }
+    });
   }
 }
