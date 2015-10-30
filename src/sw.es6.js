@@ -34,7 +34,12 @@ self.oninstall = function(event) {
     '/styles/core.css',
 
     '/favicon.ico',
-    '/manifest.json'
+    '/manifest.json',
+
+    '/partials/',
+    '/partials/url-1',
+    '/partials/url-2',
+    '/partials/index'
   ];
 
   urls = urls.map(function(url) {
