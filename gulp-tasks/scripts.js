@@ -39,7 +39,8 @@ gulp.task('scripts:watch', function() {
 
 // Takes a set of objects defining inputs of javascript files
 // to run through browserify and babelify
-function compileES6Bundles(browserifyBundles, minify) {
+function compileES6Bundles(browserifyBundles, cb) {
+  var finishedCount = 0;
   browserifyBundles.forEach(function(bundle) {
     var browserifyBundle = browserify({
       entries: [bundle.srcPath]
@@ -55,14 +56,21 @@ function compileES6Bundles(browserifyBundles, minify) {
       // If this is a production build - minify JS
       .pipe(gulpif(GLOBAL.config.env === 'prod', streamify(uglify())))
       .pipe(license(GLOBAL.config.license, GLOBAL.config.licenseOptions))
-      .pipe(gulp.dest(bundle.dest));
+      .pipe(gulp.dest(bundle.dest))
+      .on('end', function() {
+        finishedCount++;
+
+        if (finishedCount === browserifyBundles.length) {
+          cb();
+        }
+      });
   });
 }
 
 // This takes a source path and finds all files ending
 // with .es6.js and creates the bundles to run through browserify
 // and babelify
-function generateES6Bundles(srcPath) {
+function generateES6Bundles(srcPath, cb) {
   if (!srcPath) {
     throw new Error('Invalid source path given to generateES6Bundles');
   }
@@ -88,7 +96,7 @@ function generateES6Bundles(srcPath) {
     });
   });
 
-  compileES6Bundles(browserifyBundles);
+  compileES6Bundles(browserifyBundles, cb);
 }
 
 gulp.task('scripts:eslint', function() {
@@ -108,9 +116,7 @@ gulp.task('scripts:eslint', function() {
 });
 
 gulp.task('scripts:es6', function(cb) {
-  generateES6Bundles(GLOBAL.config.src);
-
-  cb();
+  generateES6Bundles(GLOBAL.config.src, cb);
 });
 
 gulp.task('scripts:es5', function() {

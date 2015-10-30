@@ -1,6 +1,6 @@
 {
   "name": "app-shell",
-  "version": "0.1.159",
+  "version": "0.1.174",
   "private": true,
   "license": "Apache",
   "engines": {
@@ -31,6 +31,7 @@
     "gulp-util": "^3.0.6",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.1.4",
+    "sw-precache": "^2.2.0",
     "vinyl-source-stream": "^1.1.0"
   }
 }

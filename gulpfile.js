@@ -34,17 +34,18 @@ GLOBAL.config = {
     },
 };
 
-var allTasks = ['styles', 'scripts', 'copy', 'html', 'images', 'third_party'];
+var allTasks = ['styles', 'scripts', 'copy', 'html', 'images'];
 
 gulp.task('default', function(cb) {
   runSequence(
     'clean',
     'bump',
     allTasks,
+    'service-worker',
     cb);
 });
 
 gulp.task('dev', function() {
   GLOBAL.config.env = 'dev';
-  return runSequence('clean', allTasks, 'watch');
+  return runSequence('clean', allTasks, 'service-worker', 'watch');
 });
