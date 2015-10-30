@@ -17,7 +17,11 @@
 
 var gulp = require('gulp');
 var path = require('path');
+var fs = require('fs');
 var swPrecache = require('sw-precache');
+
+// This is used as the cacheID, worth only reading the file once.
+var packageName = JSON.parse(fs.readFileSync('./package.json', 'utf8')).name;
 
 gulp.task('service-worker:watch', function(cb) {
   gulp.watch(GLOBAL.config.src + '/**/*.*', ['service-worker']);
@@ -36,6 +40,7 @@ gulp.task('service-worker', function(cb) {
       '/partials/url-2': ['server/layouts/partial.handlebars', 'server/views/url-2.handlebars'],
     },
     stripPrefix: GLOBAL.config.dest,
-    navigateFallback: '/app-shell'
+    navigateFallback: '/app-shell',
+    cacheId: packageName
   }, cb);
 });
