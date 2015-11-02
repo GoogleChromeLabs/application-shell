@@ -19,7 +19,7 @@ A sample web app shell demonstrating a shell + content architecture using [Servi
 Install dependencies using npm:
 
 ```sh
-$ npm install
+$ npm install -g gulp nodemon && npm install
 ```
 
 ## Usage
@@ -33,7 +33,7 @@ $ gulp
 ### Serve/watch
 
 ```sh
-$ gulp dev
+$ nodemon server/app.js && gulp dev
 ```
 
 You will need to use AppEngine to serve the contents of the directory.
