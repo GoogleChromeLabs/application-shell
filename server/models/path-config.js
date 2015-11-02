@@ -38,8 +38,15 @@ function getFileContents(files) {
 
 module.exports = {
   getConfig: function(urlPath) {
+    var object = pathConfigs[urlPath];
+
+    // Check if the path is actually valid.
+    if (!object) {
+      return null;
+    }
+
     // This needed to ensure changes made to the objects dont stick / alter
     // the original object
-    return Object.create(pathConfigs[urlPath]);
+    return Object.create(object);
   }
 };
