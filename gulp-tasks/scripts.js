@@ -22,7 +22,6 @@ var eslint = require('gulp-eslint');
 var path = require('path');
 var glob = require('glob');
 var browserify = require('browserify');
-var babelify = require('babelify');
 var gutil = require('gulp-util');
 var source = require('vinyl-source-stream');
 var uglify = require('gulp-uglify');
@@ -45,7 +44,7 @@ function compileES6Bundles(browserifyBundles, cb) {
     var browserifyBundle = browserify({
       entries: [bundle.srcPath]
     })
-    .transform(babelify);
+    .transform('babelify', {presets: ['es2015']});
 
     return browserifyBundle.bundle()
       .on('log', gutil.log.bind(gutil, 'Browserify Log'))

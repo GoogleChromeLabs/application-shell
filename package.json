@@ -1,13 +1,14 @@
 {
   "name": "app-shell",
-  "version": "0.1.174",
+  "version": "0.1.175",
   "private": true,
   "license": "Apache",
   "engines": {
     "node": ">=0.10.0"
   },
   "devDependencies": {
-    "babelify": "^6.3.0",
+    "babel-preset-es2015": "^6.0.15",
+    "babelify": "^7.2.0",
     "browserify": "^11.2.0",
     "del": "^2.0.2",
     "express": "^4.13.3",

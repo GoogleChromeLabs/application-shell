@@ -25,16 +25,16 @@ export default class ApplicationController extends Controller {
   constructor() {
     super();
 
-    this.navDrawer = new NavDrawerView();
+    var navDrawer = new NavDrawerView();
 
-    this.sideNavToggleButton = document.querySelector('.js-toggle-menu');
-    this.sideNavToggleButton.addEventListener('click', () => {
-      this.navDrawer.toggle();
+    var sideNavToggleButton = document.querySelector('.js-toggle-menu');
+    sideNavToggleButton.addEventListener('click', () => {
+      navDrawer.toggle();
     });
 
     // TODO: Find more elegant solution to this and handling anchors in the
     // web app for dynamically loaded content
-    var anchorElements = this.navDrawer.sideNavContent.querySelectorAll('a');
+    var anchorElements = navDrawer.sideNavContent.querySelectorAll('a');
     for (var i = 0; i < anchorElements.length; i++) {
       if (!anchorElements[i].href) {
         continue;
@@ -43,7 +43,7 @@ export default class ApplicationController extends Controller {
       anchorElements[i].addEventListener('click', (clickEvent) => {
         clickEvent.preventDefault();
 
-        this.navDrawer.close();
+        navDrawer.close();
 
         var router = RouterSingleton.getRouter();
         router.goToPath(clickEvent.target.href);

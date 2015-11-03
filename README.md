@@ -7,7 +7,7 @@ A sample web app shell demonstrating a shell + content architecture using [Servi
 * Time to first paint is extremely fast
 * Content is rendered. App shell can be a placeholder.
 * User can scroll, but doesn’t necessarily need to be able to navigate or deeply interact.
-* First pageload > 1000ms
+* First pageload < 1000ms
  * App shell is progressively enhanced in.
  * User can now navigate within the app.
 * Second pageload
