@@ -36,8 +36,6 @@ $ gulp
 $ nodemon server/app.js && gulp dev
 ```
 
-You will need to use AppEngine to serve the contents of the directory.
-
 ## Why?
 
 [Service Workers](http://www.html5rocks.com/en/tutorials/service-worker/introduction/) are fantastic for offline caching but they also offer significant  performance wins in the form of instant loading for repeat visits. This is possible with just a few changes to our overall application’s UI architecture.  
