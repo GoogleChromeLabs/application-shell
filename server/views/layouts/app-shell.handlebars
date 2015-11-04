@@ -110,39 +110,7 @@ limitations under the License.
     </svg>
   </div>
 
-  {{#if remoteStyles}}
-  <script>
-    var remoteStyles = [
-      {{#each remoteStyles}}
-      '{{this}}',
-      {{~/each}}
-    ];
-
-    // Asynchronously load CSS with a Request Animation Frame
-    // For older browser support see this for a simple shim
-    // http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
-    window.requestAnimationFrame(function() {
-      var elementToInsertLinkBefore =
-        document.getElementsByTagName('script')[0];
-      for (var i = 0; i < remoteStyles.length; i++) {
-        var linkElement = document.createElement('link');
-        linkElement.rel = 'stylesheet';
-        linkElement.media = 'all';
-        linkElement.href = remoteStyles[i];
-
-        elementToInsertLinkBefore.parentNode.insertBefore(linkElement,
-          elementToInsertLinkBefore);
-      }
-    });
-  </script>
-
-  <!-- In case the browser has JS disabled -->
-  <noscript>
-    {{#each remoteStyles}}
-    <link href="{{this}}" rel="stylesheet" property="stylesheet" media="all">
-    {{~/each}}
-  </noscript>
-  {{~/if}}
+  {{> async-css }}
 
   {{#each remoteScripts}}
   <script src="{{this}}" async></script>

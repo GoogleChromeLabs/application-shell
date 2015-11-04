@@ -25,8 +25,6 @@ var packageName = JSON.parse(fs.readFileSync('./package.json', 'utf8')).name;
 
 gulp.task('service-worker:watch', function(cb) {
   gulp.watch(GLOBAL.config.src + '/**/*.*', ['service-worker']);
-  gulp.watch(GLOBAL.config.src + '/../server/layouts/**/*.*',
-    ['service-worker']);
   gulp.watch(GLOBAL.config.src + '/../server/views/**/*.*',
     ['service-worker']);
 });
