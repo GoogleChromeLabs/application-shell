@@ -31,9 +31,8 @@ limitations under the License.
 
     <style type="text/css">{{{inlineStyles}}}</style>
 </head>
-<body class="{{ deeplink_class }}">
+<body>
 
-  <!-- Header element -->
   <header class="header">
       <button role="tab" class="header__menu js-toggle-menu">
         Toggle nav menu
@@ -42,19 +41,17 @@ limitations under the License.
       <h1 class="header__title">App Shell</h1>
   </header>
 
-  <!-- Main Content goes here -->
-  <main class="main js-global-main" aria-role="main">
-
+  <main class="main js-main" aria-role="main">
+    {{{body}}}
   </main>
 
-  <!-- Navigation Drawer -->
   <section class="side-nav js-side-nav">
     <div class="side-nav__content js-side-nav-content">
       <div class="side-nav__header">
         <h1 class="side-nav__title">App shell</h1>
       </div>
 
-      <div class="side-nav__body" tabindex="0">
+      <div class="side-nav__body">
         <a role="tab" tabindex="0" class="side-nav__blog-post" href="/">Index</a>
         <a role="tab" tabindex="0" class="side-nav__blog-post" href="/url-1">URL 1</a>
         <a role="tab" tabindex="0" class="side-nav__blog-post" href="/url-2">URL 2</a>
@@ -66,51 +63,7 @@ limitations under the License.
 
   <aside class="toast-view js-toast-view"></aside>
 
-  <!-- Loading Dialog For use by Activities -->
-  <div class="loader js-global-loader is-hidden">
-    <svg viewBox="0 0 32 32" width="32" height="32">
-      <style>
-        #spinner {
-          box-sizing: border-box;
-          stroke: #673AB7;
-          stroke-width: 3px;
-          transform-origin: 50%;
-
-          -webkit-animation: line 1.6s cubic-bezier(0.4, 0.0, 0.2, 1) infinite, rotate 1.6s linear infinite;
-        }
-
-        @-webkit-keyframes rotate {
-
-          from {
-            transform: rotate(0)
-          }
-
-          to {
-            transform: rotate(450deg);
-          }
-        }
-
-        @-webkit-keyframes line {
-          0% {
-            stroke-dasharray: 2, 85.964;
-            transform: rotate(0);
-          }
-
-          50% {
-            stroke-dasharray: 65.973, 21.9911;
-            stroke-dashoffset: 0;
-          }
-
-          100% {
-            stroke-dasharray: 2, 85.964;
-            stroke-dashoffset: -65.973;
-            transform: rotate(90deg);
-          }
-        }
-      </style>
-      <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
-    </svg>
-  </div>
+  {{> async-css }}
 
   {{#each remoteScripts}}
   <script src="{{this}}" async></script>

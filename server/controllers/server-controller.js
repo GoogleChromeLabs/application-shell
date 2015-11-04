@@ -20,7 +20,8 @@ ServerController.prototype.setUpServer = function(app) {
   app.set('views', path.join(__dirname, '/../views'));
   app.engine('handlebars', exphbs({
     defaultLayout: 'default',
-    layoutsDir: path.join(__dirname, '/../layouts')
+    layoutsDir: path.join(__dirname, '/../views/layouts'),
+    partialsDir: path.join(__dirname, '/../views/partials'),
   }));
   app.set('view engine', 'handlebars');
 
