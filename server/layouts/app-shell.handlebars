@@ -110,6 +110,42 @@ limitations under the License.
     </svg>
   </div>
 
+  {{#if remoteStyles}}
+  <script>
+    var remoteStyles = [
+      {{#each remoteStyles}}
+      '{{this}}',
+      {{~/each}}
+    ];
+
+    // <3 to Paul Irish
+    // http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+    var requestAnimFrame = (function(){
+      return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+          };
+    })();
+
+    // Asynchronously load CSS with a Request Animation Frame
+    requestAnimFrame(function() {
+      var elementToInsertLinkBefore =
+        document.getElementsByTagName('script')[0];
+      for (var i = 0; i < remoteStyles.length; i++) {
+        var linkElement = document.createElement('link');
+        linkElement.rel = 'stylesheet';
+        linkElement.media = 'all';
+        linkElement.href = remoteStyles[i];
+
+        elementToInsertLinkBefore.parentNode.insertBefore(linkElement,
+          elementToInsertLinkBefore);
+      }
+    });
+  </script>
+  {{~/if}}
+  
   {{#each remoteScripts}}
   <script src="{{this}}" async></script>
   {{~/each}}
