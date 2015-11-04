@@ -53,5 +53,5 @@ gulp.task('service-worker', function(cb) {
     stripPrefix: GLOBAL.config.dest,
     navigateFallback: '/app-shell',
     cacheId: packageName
-  }, cb);
+  }).then(cb);
 });
