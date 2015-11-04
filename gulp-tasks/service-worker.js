@@ -25,19 +25,32 @@ var packageName = JSON.parse(fs.readFileSync('./package.json', 'utf8')).name;
 
 gulp.task('service-worker:watch', function(cb) {
   gulp.watch(GLOBAL.config.src + '/**/*.*', ['service-worker']);
+  gulp.watch(GLOBAL.config.src + '/../server/layouts/**/*.*',
+    ['service-worker']);
+  gulp.watch(GLOBAL.config.src + '/../server/views/**/*.*',
+    ['service-worker']);
 });
 
 gulp.task('service-worker', function(cb) {
   swPrecache.write(path.join(GLOBAL.config.dest, 'sw.js'), {
     staticFileGlobs: [
       GLOBAL.config.dest + '/**/*.{js,html,css,png,jpg,jpeg,gif,svg}',
-      GLOBAL.config.dest + '/manifest.json',
+      GLOBAL.config.dest + '/manifest.json'
     ],
     dynamicUrlToDependencies: {
       '/app-shell': ['server/layouts/app-shell.handlebars'],
-      '/partials/': ['server/layouts/partial.handlebars', 'server/views/index.handlebars'],
-      '/partials/url-1': ['server/layouts/partial.handlebars', 'server/views/url-1.handlebars'],
-      '/partials/url-2': ['server/layouts/partial.handlebars', 'server/views/url-2.handlebars'],
+      '/partials/': [
+        'server/layouts/partial.handlebars',
+        'server/views/index.handlebars'
+      ],
+      '/partials/url-1': [
+        'server/layouts/partial.handlebars',
+        'server/views/url-1.handlebars'
+      ],
+      '/partials/url-2': [
+        'server/layouts/partial.handlebars',
+        'server/views/url-2.handlebars'
+      ]
     },
     stripPrefix: GLOBAL.config.dest,
     navigateFallback: '/app-shell',
