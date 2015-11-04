@@ -1,0 +1,23 @@
+<section class="side-nav js-side-nav">
+  <div class="side-nav__content js-side-nav-content">
+    <div class="side-nav__header">
+      <h1 class="side-nav__title">App shell</h1>
+    </div>
+
+    <div class="side-nav__body">
+      <a role="tab" tabindex="0" class="side-nav__blog-post" href="/">Index</a>
+      <a role="tab" tabindex="0" class="side-nav__blog-post" href="/url-1">URL 1</a>
+      <a role="tab" tabindex="0" class="side-nav__blog-post" href="/url-2">URL 2</a>
+    </div>
+
+    <div class="side-nav__version">Version @VERSION@</div>
+  </div>
+</section>
+
+{{> async-css }}
+
+{{#each remoteScripts}}
+<script src="{{this}}" async></script>
+{{~/each}}
+</body>
+</html>
