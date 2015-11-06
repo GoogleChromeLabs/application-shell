@@ -1,6 +1,6 @@
 # Application Shell Architecture
 
-A modern web application architecture leveraging [Service Worker](http://www.html5rocks.com/en/tutorials/service-worker/introduction/) to offline cache your application 'shell' and populate the content using JS. This means you can pixels get on the screen without the network, even if the content eventually comes from the network - a great performance win. In browsers without SW, we gracefully degrade to server-side rendering (e.g iOS).
+A modern web application architecture leveraging [Service Worker](http://www.html5rocks.com/en/tutorials/service-worker/introduction/) to offline cache your application 'shell' and populate the content using JS. This means you can get pixels on the screen without the network, even if the content eventually comes from the network - a great performance win. In browsers without SW, we gracefully degrade to server-side rendering (e.g iOS).
 
 ## Goals
 
