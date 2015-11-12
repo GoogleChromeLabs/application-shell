@@ -45,6 +45,12 @@ server with:
 $ nodemon server/app.js
 ```
 
+Alternatively, you can just run `npm monitor`. The application shell should now be available on port `8080`.
+
+### Deployment
+
+We've deployed the project to Node.js on [Google Cloud](https://cloud.google.com/nodejs/). To do the same, follow the steps in their Node.js deployment [getting started](https://cloud.google.com/nodejs/getting-started/hello-world) guide and after running `npm install` run `gcloud preview app deploy app.yaml --promote`. If everything works correctly, you should have the project deployed to your custom AppSpot endpoint. 
+
 ## Why?
 
 [Service Workers](http://www.html5rocks.com/en/tutorials/service-worker/introduction/) are fantastic for offline caching but they also offer significant  performance wins in the form of instant loading for repeat visits. This is possible with just a few changes to our overall application’s UI architecture.  
