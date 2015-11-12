@@ -29,8 +29,8 @@ ServerController.prototype.setUpServer = function(app) {
   app.use('/',
     express.static(path.join(__dirname + '/../../dist/')));
 
-  console.log('Starting server on 3123');
-  return app.listen('3123');
+  console.log('Starting server on 8080');
+  return app.listen('8080');
 };
 
 ServerController.prototype.addEndpoint = function(endpoint, controller) {
