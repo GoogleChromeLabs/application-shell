@@ -4,21 +4,23 @@
   "private": true,
   "license": "Apache Version 2.0",
   "engines": {
-    "node": ">=0.12.7"
+    "node": ">=4.1.0"
   },
   "scripts": {
-    "start": "nodemon server/app.js"
+    "start": "node server/app.js",
+    "monitor": "nodemon server/app.js",
+    "postinstall": "gulp",
+    "deploy": "gcloud preview app deploy app.yaml --promote"
   },
   "main": "server/app.js",
   "dependencies": {
-    "express": "^4.13.3",
-    "express-handlebars": "^2.0.1"
-  },
-  "devDependencies": {
     "babel-preset-es2015": "^6.0.15",
     "babelify": "^7.2.0",
     "browserify": "^11.2.0",
     "del": "^2.0.2",
+    "express": "^4.13.3",
+    "express-handlebars": "^2.0.1",
+    "gcloud": "^0.24.1",
     "glob": "^5.0.15",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
