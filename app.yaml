@@ -24,4 +24,50 @@ automatic_scaling:
   cool_down_period_sec: 60
   cpu_utilization:
     target_utilization: 0.5
+
+handlers:
+
+- url: /
+  script: template.app
+  secure: always
+
+- url: /images/(.*)
+  static_files: dist/images/\1
+  expiration: "365d"
+  upload: dist/images/(.*)
+  secure: always
+
+- url: /sw.js
+  static_files: dist/sw.js
+  expiration: "1s"
+  upload: dist/sw.js
+  secure: always
+
+- url: /favicon.ico
+  static_files: dist/favicon.ico
+  expiration: "365d"
+  upload: dist/favicon.ico
+  secure: always
+
+- url: /manifest.json
+  static_files: dist/manifest.json
+  expiration: "1s"
+  upload: dist/manifest.json
+  secure: always
+
+- url: /LICENSE
+  static_files: dist/LICENSE
+  expiration: "7d"
+  mime_type: text/plain
+  upload: dist/LICENSE
+  secure: always
+
+- url: /(.*)
+  script: template.app
+  secure: always
+
+- url: /src/(.*)
+  static_files: src/\1
+  upload: src/(.*)
+  secure: always
 # [END app_yaml]
