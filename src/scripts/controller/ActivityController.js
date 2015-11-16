@@ -53,7 +53,6 @@ export default class ActivityController {
         this.loader.classList.add('is-hidden');
       })
       .catch((error) => {
-        console.log(error);
         this.showError('There was a problem loading this page');
       });
   }
