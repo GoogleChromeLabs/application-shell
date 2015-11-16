@@ -24,7 +24,7 @@ var swPrecache = require('sw-precache');
 var packageName = JSON.parse(fs.readFileSync('./package.json', 'utf8')).name;
 
 gulp.task('service-worker:watch', function(cb) {
-  gulp.watch(GLOBAL.config.src + '/**/*.*', ['service-worker']);
+  gulp.watch(GLOBAL.config.dest + '/**/*.*', ['service-worker']);
   gulp.watch(GLOBAL.config.src + '/../server/views/**/*.*',
     ['service-worker']);
 });

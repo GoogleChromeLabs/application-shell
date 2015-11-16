@@ -27,7 +27,26 @@ export default class ActivityController {
       })
       .then((responseText) => {
         if (responseText !== null) {
-          this.mainContainer.innerHTML = responseText;
+          /**
+           * NOTE: We could move the script tags in the partial to the
+           * bottom of the body, but I don't think it'll change browser
+           * behaviour so it should be fine to inline the script tag in
+           * the main element.
+           **/
+
+          // Parse the response string
+          var parser = new DOMParser();
+          var partialElement =
+            parser.parseFromString(responseText, 'text/html');
+
+          // Add style element to the document head
+          var styleElement = partialElement.querySelector('.js-partial-styles');
+          document.head.appendChild(styleElement);
+
+          // Add content from partial to page
+          var contentElement =
+            partialElement.querySelector('.js-partial-content');
+          this.mainContainer.innerHTML = contentElement.innerHTML;
         }
 
         // Hide loading dialog
@@ -39,7 +58,18 @@ export default class ActivityController {
   }
 
   onFinish() {
-    console.log('onFinish: ', this.path);
+    console.log('onFinish');
+    // Remove any existing styles
+    var insertedStyles =
+      document.querySelector('.js-partial-styles');
+    if (insertedStyles) {
+      document.head.removeChild(insertedStyles);
+    }
+
+    // Remove the current content
+    while (this.mainContainer.firstChild) {
+      this.mainContainer.removeChild(this.mainContainer.firstChild);
+    }
   }
 
   show404() {
