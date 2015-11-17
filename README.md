@@ -45,7 +45,7 @@ server with:
 $ nodemon server/app.js
 ```
 
-Alternatively, you can just run `npm monitor`. The application shell should now be available on port `8080`.
+Alternatively, you can just run `npm run monitor`. The application shell should now be available on port `8080`.
 
 ### Deployment
 
