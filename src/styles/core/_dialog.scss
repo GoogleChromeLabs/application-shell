@@ -61,7 +61,7 @@
 
 .dialog-view__panel-button {
   height: 36px;
-  line-height: 36px;
+  line-height: 1;
   text-transform: uppercase;
   color: $secondary;
   font-size: 15px;
@@ -69,7 +69,6 @@
   background: none;
   border: none;
   padding: 0 8px;
-  line-height: 1;
 }
 
 .dialog-view__panel-title {
