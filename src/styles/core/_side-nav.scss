@@ -55,13 +55,11 @@
       0 4px 8px rgba(0, 0, 0, .28);
 
   will-change: transform;
-  -webkit-transform: translateX(-102%);
-          transform: translateX(-102%);
+  transform: translateX(-102%);
 }
 
 
 .side-nav__content--animatable {
-  transition: -webkit-transform 0.233s cubic-bezier(0,0,0.21,1);
   transition: transform 0.233s cubic-bezier(0,0,0.21,1);
 }
 

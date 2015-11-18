@@ -103,8 +103,6 @@ button::-moz-focus-inner {
     box-shadow: 0 0 14px rgba(0,0,0,.24),
         0 14px 28px rgba(0,0,0,.48);
     transform: translateX(105%);
-    transition: -webkit-transform 0.233s cubic-bezier(0,0,0.21,1) 0.04s,
-      opacity 0.213s cubic-bezier(0,0,0.21,1) 0.04s;
     transition: transform 0.233s cubic-bezier(0,0,0.21,1) 0.04s,
       opacity 0.213s cubic-bezier(0,0,0.21,1) 0.04s;
     will-change: transform;
