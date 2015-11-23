@@ -24,7 +24,7 @@ StaticPageController.prototype.onRequest = function(req, res) {
     return;
   default:
     // Use default layout
-    res.render(pathConfig.view, pathConfig);
+    res.render(pathConfig.data.view, pathConfig);
     return;
   }
 };

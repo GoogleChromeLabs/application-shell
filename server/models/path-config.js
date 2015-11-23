@@ -4,6 +4,7 @@ var path = require('path');
 var pathConfigs = {
   '/': {
     view: 'index',
+    title: 'Index',
     inlineStyles: getFileContents(['/styles/core.css']),
     remoteStyles: ['https://fonts.googleapis.com/css?family=Roboto:' +
       '400,300,700,500,400italic'],
@@ -11,6 +12,7 @@ var pathConfigs = {
   },
   '/url-1': {
     view: 'url-1',
+    title: 'URL 1',
     inlineStyles: getFileContents(['/styles/core.css']),
     remoteStyles: ['https://fonts.googleapis.com/css?family=Roboto:' +
       '400,300,700,500,400italic'],
@@ -18,6 +20,7 @@ var pathConfigs = {
   },
   '/url-2': {
     view: 'url-2',
+    title: 'URL 2',
     inlineStyles: getFileContents(['/styles/core.css']),
     remoteStyles: ['https://fonts.googleapis.com/css?family=Roboto:' +
       '400,300,700,500,400italic'],
@@ -25,6 +28,7 @@ var pathConfigs = {
   },
   '/app-shell': {
     view: '',
+    title: 'App Shell',
     inlineStyles: getFileContents(['/styles/core.css']),
     remoteStyles: ['https://fonts.googleapis.com/css?family=Roboto:' +
       '400,300,700,500,400italic'],
@@ -53,8 +57,8 @@ module.exports = {
       return null;
     }
 
-    // This needed to ensure changes made to the objects dont stick / alter
-    // the original object
-    return Object.create(object);
+    return {
+      'data': object
+    };
   }
 };

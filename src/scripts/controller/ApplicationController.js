@@ -17,7 +17,7 @@
 
 import Controller from './Controller';
 import RouterSingleton from '../libs/RouterSingleton';
-import ActivityController from './ActivityController';
+import PageController from './PageController';
 import NavDrawerView from './../view/NavDrawerView';
 
 export default class ApplicationController extends Controller {
@@ -51,10 +51,10 @@ export default class ApplicationController extends Controller {
     }
 
     var router = RouterSingleton.getRouter();
-    router.addRoute('/', new ActivityController());
-    router.addRoute('/url-1', new ActivityController());
-    router.addRoute('/url-2', new ActivityController());
-    router.setDefaultRoute(new ActivityController());
+    router.addRoute('/', new PageController());
+    router.addRoute('/url-1', new PageController());
+    router.addRoute('/url-2', new PageController());
+    router.setDefaultRoute(new PageController());
     router.requestStateUpdate();
   }
 }

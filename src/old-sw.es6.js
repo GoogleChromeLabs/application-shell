@@ -36,10 +36,10 @@ self.oninstall = function(event) {
     '/favicon.ico',
     '/manifest.json',
 
-    '/partials/',
-    '/partials/url-1',
-    '/partials/url-2',
-    '/partials/index'
+    '/api/',
+    '/api/url-1',
+    '/api/url-2',
+    '/api/index'
   ];
 
   urls = urls.map(function(url) {

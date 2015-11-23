@@ -1,4 +1,4 @@
-export default class ActivityController {
+export default class PageController {
   constructor() {
     this.loader = document.querySelector('.js-global-loader');
     this.mainContainer = document.querySelector('.js-global-main');
@@ -16,41 +16,42 @@ export default class ActivityController {
 
     this.updateNavDrawer(path);
 
-    fetch('/partials' + path)
+    fetch('/api' + path)
       .then((response) => {
         if (response.status === 404) {
           this.show404();
           return null;
         }
 
-        return response.text();
+        return response.json();
       })
-      .then((responseText) => {
-        if (responseText !== null) {
-          /**
-           * NOTE: We could move the script tags in the partial to the
-           * bottom of the body, but I don't think it'll change browser
-           * behaviour so it should be fine to inline the script tag in
-           * the main element.
-           **/
-
-          // Parse the response string
-          var parser = new DOMParser();
-          var partialElement =
-            parser.parseFromString(responseText, 'text/html');
-
-          // Add style element to the document head
-          var styleElement = partialElement.querySelector('.js-partial-styles');
-          document.head.appendChild(styleElement);
-
-          // Add content from partial to page
-          var contentElement =
-            partialElement.querySelector('.js-partial-content');
-          this.mainContainer.innerHTML = contentElement.innerHTML;
-        }
-
+      .then((responseObject) => {
         // Hide loading dialog
         this.loader.classList.add('is-hidden');
+
+        if (responseObject === null) {
+          throw new Error('Unexpected response from Server.');
+        }
+
+        /**
+         * NOTE: We could move the script tags in the partial to the
+         * bottom of the body, but I don't think it'll change browser
+         * behaviour so it should be fine to inline the script tag in
+         * the main element.
+         **/
+        document.title = responseObject.title;
+
+        // Add style element to the document head
+        var styleElement = document.createElement('style');
+        styleElement.textContent = responseObject.partialinlinestyles;
+        document.head.appendChild(styleElement);
+
+        // Add content from partial to page
+        this.mainContainer.innerHTML = responseObject.partialhtml;
+
+        // TODO: Handle remote scripts
+
+        // TODO: Handle remote styles
       })
       .catch((error) => {
         this.showError('There was a problem loading this page');

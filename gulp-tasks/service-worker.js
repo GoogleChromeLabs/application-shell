@@ -37,16 +37,13 @@ gulp.task('service-worker', function(cb) {
     ],
     dynamicUrlToDependencies: {
       '/app-shell': ['server/views/layouts/app-shell.handlebars'],
-      '/partials/': [
-        'server/views/layouts/partial.handlebars',
+      '/api/': [
         'server/views/index.handlebars'
       ],
-      '/partials/url-1': [
-        'server/views/layouts/partial.handlebars',
+      '/api/url-1': [
         'server/views/url-1.handlebars'
       ],
-      '/partials/url-2': [
-        'server/views/layouts/partial.handlebars',
+      '/api/url-2': [
         'server/views/url-2.handlebars'
       ]
     },
