@@ -51,7 +51,7 @@ Alternatively, you can just run `npm run monitor`. The application shell should 
 
 ### Deployment
 
-We've deployed the project to Node.js on [Google Cloud](https://cloud.google.com/nodejs/). To do the same, follow the steps in their Node.js deployment [getting started](https://cloud.google.com/nodejs/getting-started/hello-world) guide and after running `npm install` run `gcloud preview app deploy app.yaml --promote`. If everything works correctly, you should have the project deployed to your custom AppSpot endpoint. 
+We've deployed the project to Node.js on [Google Cloud](https://cloud.google.com/nodejs/). To do the same, follow the steps in their Node.js deployment [getting started](https://cloud.google.com/nodejs/getting-started/hello-world) guide and after running `npm install` run `gcloud preview app deploy app.yaml --promote`. If everything works correctly, you should have the project deployed to your custom AppSpot endpoint.
 
 ## Notes
 
@@ -68,6 +68,35 @@ There are no hard and fast rules with this architecture, but there are a few got
 * Requests for application content may be delayed by various processes such loading of the app shell, loading of JavaScript or fetch requests. Jake Archibald hacked around this by initiating the data request in his Wikipedia offline web app as he [served the shell](https://github.com/jakearchibald/offline-wikipedia/blob/master/public/js/sw/index.js#L59).
 
 * In the application shell architecture downloading and adding content can interfere with progressive rendering. This can be an issue for larger JavaScript bundles or longer pieces of content on slow connections. It might even cause performance issues when reading content from the disk. Where possible *include* meaningful page content with the initial download rather than making a separate request for it. In the Wikipedia application, Jake was loading third party content and had to work around this, which is why he used the [Streams API](https://github.com/jakearchibald/offline-wikipedia/blob/master/public/js/page/views/article.js#L86). We strongly recommend reducing the number of requests made for your page content if at all possible.
+
+## FAQs
+
+* Why is there a noscript tag for CSS files?
+
+    There is a great deal of content surrounding how to optimize for the
+    [critical render path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/?hl=en).
+    This boils down to, prioritize CSS for the visible viewport on first load
+    by inlining those styles and then asynchronously load in additional styles.
+    At the moment the web doesn't have any way to asynchronously load extra CSS
+    files. The only way you can do it is to use Javascript to add the CSS files
+    after the page has loaded / started to render.
+
+    The reason we have a `<noscript>` tag is that if a user has
+    disabled Javascript, those extra files, loaded by Javascript, will never
+    be loaded. Meaning, if you still want the extra styles to loaded when JS
+    is disabled, you simply add a link to them inside the `<noscript>` tag.
+
+    Because this project is aimed at progressively enhancing, this is a simple
+    way to work without JS and then progressively enhance, adding in support
+    for a faster load time by asynchronously loading extra styles.
+
+* Why care about noscript in an architecture depending on fetch support?
+
+    This architecture doesn't depend on JavaScript. *If* JavaScript is supported
+    then we rely on a fetch library to handle network requests.
+
+    Essentially the noscript use is a small (and trivial) attempt at treating
+    JavaScript as a progressive enhancement.
 
 ## License
 
