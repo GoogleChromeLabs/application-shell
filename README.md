@@ -2,6 +2,8 @@
 
 A modern web application architecture leveraging [Service Worker](http://www.html5rocks.com/en/tutorials/service-worker/introduction/) to offline cache your application 'shell' and populate the content using JS. This means you can get pixels on the screen without the network, even if the content eventually comes from the network - a great performance win. In browsers without SW, we gracefully degrade to server-side rendering (e.g iOS). [Demo](https://app-shell.appspot.com/).
 
+Full details of the architecture can be found in [Instant Loading Web Apps With An Application Shell Architecture](https://medium.com/@addyosmani/instant-loading-web-apps-with-an-application-shell-architecture-7c0c2f10c73#.a4d09g3j4) and [Instant Loading with Service Workers](https://www.youtube.com/watch?v=jCKZDTtUA2A&feature=youtu.be).
+
 ## Goals
 
 * Time to first paint is extremely fast
