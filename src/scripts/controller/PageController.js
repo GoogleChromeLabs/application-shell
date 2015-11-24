@@ -2,6 +2,8 @@ export default class PageController {
   constructor() {
     this.loader = document.querySelector('.js-global-loader');
     this.mainContainer = document.querySelector('.js-global-main');
+
+    this.DEFAULT_TITLE = 'App Shell';
   }
 
   onUpdate() {
@@ -33,13 +35,11 @@ export default class PageController {
           throw new Error('Unexpected response from Server.');
         }
 
-        /**
-         * NOTE: We could move the script tags in the partial to the
-         * bottom of the body, but I don't think it'll change browser
-         * behaviour so it should be fine to inline the script tag in
-         * the main element.
-         **/
-        document.title = responseObject.title;
+        if (responseObject.title) {
+          document.title = responseObject.title;
+        } else {
+          document.title = this.DEFAULT_TITLE;
+        }
 
         // Add style element to the document head
         var styleElement = document.createElement('style');
