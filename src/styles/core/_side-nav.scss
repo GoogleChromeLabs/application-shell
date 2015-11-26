@@ -47,15 +47,21 @@
 
 .side-nav__content {
   background: #FAFAFA;
-  width: 304px;
+  width: 80%;
+  max-width: 304px;
   height: 100%;
   overflow: hidden;
+  position: relative;
 
   box-shadow: 0 0 4px rgba(0, 0, 0, .14),
       0 4px 8px rgba(0, 0, 0, .28);
 
   will-change: transform;
   transform: translateX(-102%);
+
+  &.side-nav--visible {
+    transform: translateX(0px);
+  }
 }
 
 
@@ -89,7 +95,7 @@
 .side-nav__version {
   position: absolute;
   bottom: 16px;
-  right: 16px;
+  left: 16px;
   font-size: 14px;
   opacity: 0.54;
 }

@@ -50,8 +50,7 @@ gulp.task('styles:clean', function(cb) {
 });
 
 gulp.task('styles:sass', function() {
-  var stream = gulp.src(GLOBAL.config.src + '/**/*.scss')
-
+  return gulp.src(GLOBAL.config.src + '/**/*.scss')
     // Only create sourcemaps for dev
     .pipe(gulpif(GLOBAL.config.env !== 'prod', sourcemaps.init()))
     .pipe(sass())
@@ -60,8 +59,6 @@ gulp.task('styles:sass', function() {
     .pipe(license(GLOBAL.config.license, GLOBAL.config.licenseOptions))
     .pipe(gulpif(GLOBAL.config.env !== 'prod', sourcemaps.write()))
     .pipe(gulp.dest(GLOBAL.config.dest));
-
-  return stream;
 });
 
 gulp.task('styles', function(cb) {
