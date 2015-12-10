@@ -39,6 +39,11 @@ gulp.task('scripts:watch', function() {
 // Takes a set of objects defining inputs of javascript files
 // to run through browserify and babelify
 function compileES6Bundles(browserifyBundles, cb) {
+  // Check if there is anything to do
+  if (browserifyBundles.length === 0) {
+    return cb();
+  }
+
   var finishedCount = 0;
   browserifyBundles.forEach(function(bundle) {
     var browserifyBundle = browserify({
@@ -71,7 +76,7 @@ function compileES6Bundles(browserifyBundles, cb) {
 // and babelify
 function generateES6Bundles(srcPath, cb) {
   if (!srcPath) {
-    throw new Error('Invalid source path given to generateES6Bundles');
+    return cb(new Error('Invalid source path given to generateES6Bundles'));
   }
 
   var es6Filepaths = glob.sync(srcPath + '/**/*.es6.js');
@@ -157,3 +162,4 @@ gulp.task('scripts', function(cb) {
     cb
   );
 });
+
