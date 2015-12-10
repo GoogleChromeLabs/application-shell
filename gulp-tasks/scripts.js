@@ -34,6 +34,7 @@ var rename = require('gulp-rename');
 
 gulp.task('scripts:watch', function() {
   gulp.watch(GLOBAL.config.src + '/**/*.js', ['scripts']);
+  gulp.watch('./.eslintrc', ['scripts']);
 });
 
 // Takes a set of objects defining inputs of javascript files
@@ -116,7 +117,7 @@ gulp.task('scripts:eslint', function() {
 
     // To have the process exit with an error code (1) on
     // lint error, return the stream and pipe to failOnError last.
-    .pipe(eslint.failOnError());
+    .pipe(gulpif(GLOBAL.config.env === 'prod', eslint.failOnError()));
 });
 
 gulp.task('scripts:es6', function(cb) {
