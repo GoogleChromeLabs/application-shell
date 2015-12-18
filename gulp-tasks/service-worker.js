@@ -50,7 +50,8 @@ gulp.task('service-worker', function(cb) {
     },
     stripPrefix: GLOBAL.config.dest,
     navigateFallback: '/app-shell',
-    cacheId: packageName
+    cacheId: packageName,
+    handleFetch: (GLOBAL.config.env === 'prod')
   })
   .then(cb)
   .catch(() => {
