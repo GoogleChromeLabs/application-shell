@@ -11,9 +11,10 @@
  *
  */
 
-var serverController = require('./controllers/server-controller');
-var StaticPageController = require('./controllers/static-page-controller');
-var APIController = require('./controllers/api-controller');
+var serverController = require('./server/controllers/server-controller');
+var StaticPageController = require(
+  './server/controllers/static-page-controller');
+var APIController = require('./server/controllers/api-controller');
 
 // APIController serves up the HTML without any HTML body or head
 serverController.addEndpoint('/api*', new APIController(
