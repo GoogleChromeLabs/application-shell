@@ -30,8 +30,8 @@ GLOBAL.config = {
   version: projectPackage.version,
   license: 'Apache',
   licenseOptions: {
-      organization: 'Google Inc. All rights reserved.',
-    },
+    organization: 'Google Inc. All rights reserved.'
+  }
 };
 
 var allTasks = ['styles', 'scripts', 'copy', 'html', 'images'];
@@ -47,5 +47,9 @@ gulp.task('default', function(cb) {
 
 gulp.task('dev', function() {
   GLOBAL.config.env = 'dev';
+  return runSequence('clean', allTasks, 'service-worker', 'watch', 'nodemon');
+});
+
+gulp.task('prod', function() {
   return runSequence('clean', allTasks, 'service-worker', 'watch', 'nodemon');
 });
