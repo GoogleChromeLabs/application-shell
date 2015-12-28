@@ -42,7 +42,11 @@ ServerController.prototype.startServer = function(port) {
   // As a failsafe use port 0 if the input isn't defined
   // this will result in a random port being assigned
   // See : https://nodejs.org/api/http.html for details
-  if (typeof port === 'undefined' || port === null) {
+  if (
+    typeof port === 'undefined' ||
+    port === null ||
+    isNaN(parseInt(port, 10))
+  ) {
     port = 0;
   }
 

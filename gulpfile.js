@@ -42,6 +42,7 @@ require('require-dir')('gulp-tasks');
 var projectPackage = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 GLOBAL.config = {
   env: 'prod',
+  port: 8080,
   src: 'src',
   dest: 'dist',
   version: projectPackage.version,
@@ -67,6 +68,7 @@ function startWatchTasks() {
 
 gulp.task('dev', function() {
   GLOBAL.config.env = 'dev';
+  GLOBAL.config.port = 8081;
   return startWatchTasks();
 });
 
