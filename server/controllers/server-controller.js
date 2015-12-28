@@ -39,6 +39,13 @@ function ServerController() {
 }
 
 ServerController.prototype.startServer = function(port) {
+  // As a failsafe use port 0 if the input isn't defined
+  // this will result in a random port being assigned
+  // See : https://nodejs.org/api/http.html for details
+  if (typeof port === 'undefined' || port === null) {
+    port = 0;
+  }
+
   var server = this.getExpressApp().listen(port, () => {
     var serverPort = server.address().port;
     console.log('Server running on port ' + serverPort);
