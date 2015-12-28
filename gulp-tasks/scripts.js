@@ -34,6 +34,7 @@ var rename = require('gulp-rename');
 
 gulp.task('scripts:watch', function() {
   gulp.watch(GLOBAL.config.src + '/**/*.js', ['scripts']);
+  gulp.watch(['./.eslintrc', './.eslintignore'], ['scripts']);
 });
 
 // Takes a set of objects defining inputs of javascript files
@@ -51,23 +52,30 @@ function compileES6Bundles(browserifyBundles, cb) {
     })
     .transform('babelify', {presets: ['es2015']});
 
-    return browserifyBundle.bundle()
-      .on('log', gutil.log.bind(gutil, 'Browserify Log'))
-      .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-      .pipe(source(bundle.outputFilename))
-      .pipe(replace(/@VERSION@/g, GLOBAL.config.version))
+    try {
+      return browserifyBundle.bundle()
+        .on('log', gutil.log.bind(gutil, 'Browserify Log'))
+        .on('error', function(err) {
+          gutil.log('Browserify Error', err);
+          this.emit('end');
+        })
+        .pipe(source(bundle.outputFilename))
+        .pipe(replace(/@VERSION@/g, GLOBAL.config.version))
 
-      // If this is a production build - minify JS
-      .pipe(gulpif(GLOBAL.config.env === 'prod', streamify(uglify())))
-      .pipe(license(GLOBAL.config.license, GLOBAL.config.licenseOptions))
-      .pipe(gulp.dest(bundle.dest))
-      .on('end', function() {
-        finishedCount++;
+        // If this is a production build - minify JS
+        .pipe(gulpif(GLOBAL.config.env === 'prod', streamify(uglify())))
+        .pipe(license(GLOBAL.config.license, GLOBAL.config.licenseOptions))
+        .pipe(gulp.dest(bundle.dest))
+        .on('end', function() {
+          finishedCount++;
 
-        if (finishedCount === browserifyBundles.length) {
-          cb();
-        }
-      });
+          if (finishedCount === browserifyBundles.length) {
+            cb();
+          }
+        });
+    } catch (exception) {
+      console.log(exception);
+    }
   });
 }
 
@@ -116,7 +124,7 @@ gulp.task('scripts:eslint', function() {
 
     // To have the process exit with an error code (1) on
     // lint error, return the stream and pipe to failOnError last.
-    .pipe(eslint.failOnError());
+    .pipe(gulpif(GLOBAL.config.env === 'prod', eslint.failOnError()));
 });
 
 gulp.task('scripts:es6', function(cb) {

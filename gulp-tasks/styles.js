@@ -53,7 +53,7 @@ gulp.task('styles:sass', function() {
   return gulp.src(GLOBAL.config.src + '/**/*.scss')
     // Only create sourcemaps for dev
     .pipe(gulpif(GLOBAL.config.env !== 'prod', sourcemaps.init()))
-    .pipe(sass())
+    .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(gulpif(GLOBAL.config.env === 'prod', minifyCSS()))
     .pipe(license(GLOBAL.config.license, GLOBAL.config.licenseOptions))
