@@ -27,7 +27,7 @@ export default class Controller {
 
   registerServiceWorker() {
     if (!('serviceWorker' in navigator)) {
-      // Service worker is supported on this platform
+      // Service worker is not supported on this platform
       return;
     }
 
