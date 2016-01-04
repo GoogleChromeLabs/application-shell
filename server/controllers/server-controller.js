@@ -9,10 +9,24 @@ function ServerController() {
     layoutsDir: path.join(__dirname, '/../views/layouts'),
     partialsDir: path.join(__dirname, '/../views/partials')
   });
-  var expressServer = this.setUpServer(expressApp, handleBarsInstance);
+
+  // Set up the use of handle bars and set the path for views and layouts
+  expressApp.set('views', path.join(__dirname, '/../views'));
+  expressApp.engine('handlebars', handleBarsInstance.engine);
+  expressApp.set('view engine', 'handlebars');
+
+  // Define static assets path - i.e. styles, scripts etc.
+  expressApp.use('/',
+    express.static(path.join(__dirname + '/../../dist/')));
+
+  var expressServer = null;
 
   this.getExpressApp = function() {
     return expressApp;
+  };
+
+  this.setExpressServer = function(server) {
+    expressServer = server;
   };
 
   this.getExpressServer = function() {
@@ -24,18 +38,23 @@ function ServerController() {
   };
 }
 
-ServerController.prototype.setUpServer = function(app, handleBarsInstance) {
-  // Set up the use of handle bars and set the path for views and layouts
-  app.set('views', path.join(__dirname, '/../views'));
-  app.engine('handlebars', handleBarsInstance.engine);
-  app.set('view engine', 'handlebars');
+ServerController.prototype.startServer = function(port) {
+  // As a failsafe use port 0 if the input isn't defined
+  // this will result in a random port being assigned
+  // See : https://nodejs.org/api/http.html for details
+  if (
+    typeof port === 'undefined' ||
+    port === null ||
+    isNaN(parseInt(port, 10))
+  ) {
+    port = 0;
+  }
 
-  // Define static assets path - i.e. styles, scripts etc.
-  app.use('/',
-    express.static(path.join(__dirname + '/../../dist/')));
-
-  console.log('Starting server on 8080');
-  return app.listen('8080');
+  var server = this.getExpressApp().listen(port, () => {
+    var serverPort = server.address().port;
+    console.log('Server running on port ' + serverPort);
+  });
+  this.setExpressServer(server);
 };
 
 ServerController.prototype.addEndpoint = function(endpoint, controller) {

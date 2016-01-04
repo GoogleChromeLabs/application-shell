@@ -22,3 +22,4 @@ serverController.addEndpoint('/api*', new APIController(
 ));
 // The static page controller serves the basic form of the pages
 serverController.addEndpoint('/*', new StaticPageController());
+serverController.startServer(process.env.PORT);
