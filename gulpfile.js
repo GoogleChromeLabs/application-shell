@@ -42,8 +42,8 @@ require('require-dir')('gulp-tasks');
 var projectPackage = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 GLOBAL.config = {
   env: 'prod',
-  src: 'src',
-  dest: 'dist',
+  src: 'frontend-assets',
+  dest: 'build',
   version: projectPackage.version,
   license: 'Apache',
   licenseOptions: {

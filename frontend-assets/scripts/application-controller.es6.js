@@ -17,4 +17,6 @@
 
 import ApplicationController from './controller/ApplicationController';
 
-new ApplicationController();
+if (!window.AppShell) {
+  window.AppShell = new ApplicationController();
+}

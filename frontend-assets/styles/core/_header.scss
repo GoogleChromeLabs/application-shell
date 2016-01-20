@@ -19,7 +19,6 @@
   width: 100%;
   height: 56px;
   color: #FFF;
-  background: $primary;
   position: fixed;
   font-size: 20px;
   box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
@@ -35,6 +34,14 @@
   align-items: stretch;
   align-content: center;
   transition: transform 0.233s cubic-bezier(0,0,0.21,1) 0.1s;
+
+  &.is-from-static {
+    background: $secondary;
+  }
+
+  &.is-from-shell {
+    background: $primary;
+  }
 }
 
 .header--collapsed {

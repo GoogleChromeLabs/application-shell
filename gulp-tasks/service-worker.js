@@ -36,16 +36,16 @@ gulp.task('service-worker', function(cb) {
       GLOBAL.config.dest + '/manifest.json'
     ],
     dynamicUrlToDependencies: {
-      '/app-shell': ['server/views/layouts/app-shell.handlebars'],
-      '/api/': [
-        'server/views/index.handlebars',
+      '/app-shell': ['templates/layouts/app-shell.handlebars'],
+      '/api/partials/': [
+        'templates/views/index.handlebars',
         GLOBAL.config.dest + '/styles/core.css'
       ],
-      '/api/url-1': [
-        'server/views/url-1.handlebars'
+      '/api/partials/url-1': [
+        'templates/views/url-1.handlebars'
       ],
-      '/api/url-2': [
-        'server/views/url-2.handlebars'
+      '/api/partials/url-2': [
+        'templates/views/url-2.handlebars'
       ]
     },
     stripPrefix: GLOBAL.config.dest,
@@ -54,7 +54,8 @@ gulp.task('service-worker', function(cb) {
     handleFetch: (GLOBAL.config.env === 'prod')
   })
   .then(cb)
-  .catch(() => {
+  .catch(err => {
+    console.log('swprecache error: ', err);
     cb();
   });
 });

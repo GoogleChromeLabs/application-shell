@@ -1,25 +1,35 @@
 'use strict';
 
-/**
- *
- * The structure of this node server is the following:
- * 1.) server-controller starts an express server which defines the static
- *     content, port number and sets up handle bars to use the views and layouts
- * 2.) URLs are then routed by defining a url and calling addEndpoint(). On
- *     requests to a matching url the onRequest() method is called in the
- *     passed in controller (i.e. StaticPageController)
- *
- */
-
+var PageOptions = require('./server/models/page-options');
 var serverController = require('./server/controllers/server-controller');
-var StaticPageController = require(
-  './server/controllers/static-page-controller');
-var APIController = require('./server/controllers/api-controller');
 
-// APIController serves up the HTML without any HTML body or head
-serverController.addEndpoint('/api*', new APIController(
-  serverController.getHandleBarsInstance()
-));
-// The static page controller serves the basic form of the pages
-serverController.addEndpoint('/*', new StaticPageController());
+var indexPageOptions = new PageOptions('index', 'Index Title');
+indexPageOptions.addInlineStylesheet('/styles/core.css');
+indexPageOptions.addRemoteStylesheet(
+  'https://fonts.googleapis.com/css?family=Roboto:' +
+  '400,300,700,500,400italic');
+serverController.addUIEndpoint('/', indexPageOptions);
+
+var url1Options = new PageOptions('url-1', 'URL 1 Title');
+url1Options.addInlineStylesheet('/styles/core.css');
+url1Options.addRemoteStylesheet(
+  'https://fonts.googleapis.com/css?family=Roboto:' +
+  '400,300,700,500,400italic');
+serverController.addUIEndpoint('/url-1', url1Options);
+
+var url2Options = new PageOptions('url-2', 'URL 2 Title');
+url2Options.addInlineStylesheet('/styles/core.css');
+url2Options.addRemoteStylesheet(
+  'https://fonts.googleapis.com/css?family=Roboto:' +
+  '400,300,700,500,400italic');
+serverController.addUIEndpoint('/url-2', url2Options);
+
+var appShellOptions = new PageOptions(null, 'App Shell Title Title');
+appShellOptions.addInlineStylesheet('/styles/core.css');
+appShellOptions.addRemoteStylesheet(
+  'https://fonts.googleapis.com/css?family=Roboto:' +
+  '400,300,700,500,400italic');
+appShellOptions.setLayout('app-shell');
+serverController.addUIEndpoint('/app-shell', appShellOptions);
+
 serverController.startServer(process.env.PORT);

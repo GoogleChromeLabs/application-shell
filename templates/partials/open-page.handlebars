@@ -20,7 +20,7 @@ limitations under the License.
 <html>
 <head>
     <meta charset="utf-8">
-    <title>{{data.title}}</title>
+    <title>{{title}}</title>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,14 +29,22 @@ limitations under the License.
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/images/chrome-touch-icon-192x192.png" sizes="192x192" type="image/png">
 
-    <style type="text/css">{{{data.inlineStyles}}}</style>
+    {{#if inlineStylesheets}}
+    <style type="text/css">
+    {{#each inlineStylesheets}}
+      {{{inlineFile this}}}
+    {{/each}}
+    </style>
+    {{/if}}
+
+    {{#if remoteStylesheets}}
+    <!-- In case the browser has JS disabled, this will
+      ensure remote styles are still loaded -->
+    <noscript>
+      {{#each remoteStylesheets}}
+      <link href="{{this}}" rel="stylesheet" property="stylesheet" media="all">
+      {{~/each}}
+    </noscript>
+    {{/if}}
 </head>
 <body>
-
-  <header class="header">
-      <button role="tab" class="header__menu js-toggle-menu">
-        Toggle nav menu
-      </button>
-
-      <h1 class="header__title">App Shell</h1>
-  </header>

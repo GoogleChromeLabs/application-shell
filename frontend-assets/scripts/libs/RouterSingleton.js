@@ -29,6 +29,8 @@ export default class RouterSingleton {
 
 }
 
+var DEFAULT_TITLE = 'App Shell';
+
 class Router {
   constructor() {
     this.routes = {};
@@ -110,6 +112,12 @@ class Router {
     // Only process real changes.
     if (path === window.location.pathname) {
       return;
+    }
+
+    if (title) {
+      document.title = title;
+    } else {
+      document.title = DEFAULT_TITLE;
     }
 
     history.pushState(undefined, title, path);

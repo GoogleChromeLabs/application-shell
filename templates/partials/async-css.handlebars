@@ -1,7 +1,7 @@
-{{#if data.remoteStyles}}
+{{#if remoteStylesheets}}
 <script>
   var remoteStyles = [
-    {{#each data.remoteStyles}}
+    {{#each remoteStylesheets}}
     '{{this}}',
     {{~/each}}
   ];
@@ -23,11 +23,4 @@
     }
   });
 </script>
-
-<!-- In case the browser has JS disabled -->
-<noscript>
-  {{#each data.remoteStyles}}
-  <link href="{{this}}" rel="stylesheet" property="stylesheet" media="all">
-  {{~/each}}
-</noscript>
 {{~/if}}

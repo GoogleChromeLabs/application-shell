@@ -1,56 +1,93 @@
+'use strict';
+
 var path = require('path');
 var express = require('express');
 var exphbs = require('express-handlebars');
+var fs = require('fs');
+/**
+ * Server controller takes care of starting and
+ * configuring an Express server to handle
+ * network requests
+ */
+class ServerController {
+  constructor() {
+    let templatePath = path.join(__dirname, '..', '..', 'templates');
+    let assetBuildPath = path.join(__dirname, '..', '..', 'build');
 
-function ServerController() {
-  var expressApp = express();
-  var handleBarsInstance = exphbs.create({
-    defaultLayout: 'default',
-    layoutsDir: path.join(__dirname, '/../views/layouts'),
-    partialsDir: path.join(__dirname, '/../views/partials')
-  });
+    this._handlerbarsInstance = exphbs.create({
+      defaultLayout: 'default',
+      layoutsDir: path.join(templatePath, 'layouts'),
+      partialsDir: path.join(templatePath, 'partials'),
+      helpers: {
+        inlineFile: function(filePath) {
+          try {
+            let actualFilePath = path.join(assetBuildPath, filePath);
+            return fs.readFileSync(actualFilePath);
+          } catch (err) {
+            console.log('Unknown file inline request.', filePath);
+          }
+          return '';
+        }
+      }
+    });
 
-  // Set up the use of handle bars and set the path for views and layouts
-  expressApp.set('views', path.join(__dirname, '/../views'));
-  expressApp.engine('handlebars', handleBarsInstance.engine);
-  expressApp.set('view engine', 'handlebars');
+    this._expressApp = express();
+    // Set up the use of handle bars and set the path for views and layouts
+    this._expressApp.set('views', path.join(templatePath, 'views'));
+    this._expressApp.engine('handlebars', this._handlerbarsInstance.engine);
+    this._expressApp.set('view engine', 'handlebars');
 
-  // Define static assets path - i.e. styles, scripts etc.
-  expressApp.use('/',
-    express.static(path.join(__dirname + '/../../dist/')));
+    // Define static assets path - i.e. styles, scripts etc.
+    this._expressApp.use('/',
+      express.static(path.join(assetBuildPath)));
 
-  var expressServer = null;
+    this._expressServer = null;
+  }
 
-  this.getExpressApp = function() {
-    return expressApp;
-  };
+  startServer(port) {
+    // As a failsafe use port 0 if the input isn't defined
+    // this will result in a random port being assigned
+    // See : https://nodejs.org/api/http.html for details
+    if (typeof port === 'undefined' ||
+      port === null ||
+      isNaN(parseInt(port, 10))
+    ) {
+      port = 0;
+    }
 
-  this.setExpressServer = function(server) {
-    expressServer = server;
-  };
+    this._expressServer = this._expressApp.listen(port, () => {
+      var serverPort = this._expressServer.address().port;
+      console.log('Server running on port ' + serverPort);
+    });
+  }
 
-  this.getExpressServer = function() {
-    return expressServer;
-  };
+  addUIEndpoint(route, pageOpts) {
+    this._expressApp.get(route, (req, res) => {
+      res.render(pageOpts.template, pageOpts.handlebarsConfig);
+    });
 
-  this.getHandleBarsInstance = function() {
-    return handleBarsInstance;
-  };
+    this._expressApp.get('/api/partials' + route, (req, res) => {
+      let templatePath = path.join(
+        __dirname,
+        '..', '..',
+        'templates', 'views',
+        pageOpts.template + '.handlebars'
+      );
+      this._handlerbarsInstance.render(
+        templatePath,
+        pageOpts.handlebarsConfig
+      )
+      .then(function(renderedTemplate) {
+        var apiConfig = pageOpts.apiConfig;
+        apiConfig.html = renderedTemplate;
+        res.json(apiConfig);
+      })
+      .catch(function(err) {
+        console.log('Partial API Error: ' + err);
+        res.status(500).send();
+      });
+    });
+  }
 }
-
-ServerController.prototype.startServer = function(port) {
-  var server = this.getExpressApp().listen(port, () => {
-    var serverPort = server.address().port;
-    console.log('Server running on port ' + serverPort);
-  });
-  this.setExpressServer(server);
-};
-
-ServerController.prototype.addEndpoint = function(endpoint, controller) {
-  // Add the endpoint and call the onRequest method when a request is made
-  this.getExpressApp().get(endpoint, function(req, res) {
-    controller.onRequest(req, res);
-  });
-};
 
 module.exports = new ServerController();

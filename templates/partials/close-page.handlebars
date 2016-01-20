@@ -18,7 +18,16 @@
 
 {{> async-css }}
 
-{{#each data.remoteScripts}}
+{{#if inlineScripts}}
+<script>
+{{#each inlineScripts}}
+  {{{inlineFile this}}}
+{{/each}}
+</script>
+{{/if}}
+
+<script src="/scripts/application-controller.js" async></script>
+{{#each remoteScripts}}
 <script src="{{this}}" async></script>
 {{~/each}}
 </body>
