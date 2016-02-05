@@ -57,9 +57,9 @@ We've deployed the project to Node.js on [Google Cloud](https://cloud.google.com
 
 ## Tips for your application shell
 
-In a [Progressive webapp](https://infrequently.org/2015/06/progressive-apps-escaping-tabs-without-losing-our-soul/), everything necessary to load the the simplest "shell" of your UI consists of HTML, CSS and JavaScript. Keep this shell as lean as possible. Some of the will come from your application’s index file (inline DOM, styles) and the rest may be loaded from external scripts and stylesheets. Together, they are all you need to display a simple, static app. It’s important to keep the shell of your webapp lean to ensure that some inline static structural content can be displayed as soon as the webapp is opened, regardless of the network being available or not.
+In a [Progressive Web App](https://infrequently.org/2015/06/progressive-apps-escaping-tabs-without-losing-our-soul/), everything necessary to load the the simplest "shell" of your UI consists of HTML, CSS and JavaScript. Keep this shell as lean as possible. Some of it will come from your application’s index file (inline DOM, styles) and the rest may be loaded from external scripts and stylesheets. Together, they are all you need to display a simple, static app. It’s important to keep the shell of your webapp lean to ensure that some inline static structural content can be displayed as soon as the webapp is opened, regardless of the network being available or not.
 
-A static webapp that always displays the same content may not be what your users expect - it may well be quite dynamic. This means the app may need to fetch data specific to the user’s current needs so this data can come from the network / a server-side API but we logically separate this work for our app from the application shell. When it comes to offline support, structuring your app so that there’s a clear distinction between the page shell and the dynamic or state-specific resources will come in very handy.
+A static webapp that always displays the same content may not be what your users expect - it may well be quite dynamic. This means the app may need to fetch data specific to the user’s current needs so this data can come from the network / a server-side API but we logically separate this work for our app from the application shell. When it comes to offline support, structuring your app so that there's a clear distinction between the page shell and the dynamic or state-specific resources will come in very handy.
 
 ## Gotchas
 
@@ -67,7 +67,7 @@ There are no hard and fast rules with this architecture, but there are a few got
 
 * Requests for application content may be delayed by various processes such loading of the app shell, loading of JavaScript or fetch requests. Jake Archibald hacked around this by initiating the data request in his Wikipedia offline web app as he [served the shell](https://github.com/jakearchibald/offline-wikipedia/blob/master/public/js/sw/index.js#L59).
 
-* In the application shell architecture downloading and adding content can interfere with progressive rendering. This can be an issue for larger JavaScript bundles or longer pieces of content on slow connections. It might even cause performance issues when reading content from the disk. Where possible *include* meaningful page content with the initial download rather than making a separate request for it. In the Wikipedia application, Jake was loading third party content and had to work around this, which is why he used the [Streams API](https://github.com/jakearchibald/offline-wikipedia/blob/master/public/js/page/views/article.js#L86). We strongly recommend reducing the number of requests made for your page content if at all possible.
+* In the application shell architecture, downloading and adding content can interfere with progressive rendering. This can be an issue for larger JavaScript bundles or longer pieces of content on slow connections. It might even cause performance issues when reading content from the disk. Where possible *include* meaningful page content with the initial download rather than making a separate request for it. In the Wikipedia application, Jake was loading third party content and had to work around this, which is why he used the [Streams API](https://github.com/jakearchibald/offline-wikipedia/blob/master/public/js/page/views/article.js#L86). We strongly recommend reducing the number of requests made for your page content if at all possible.
 
 ## FAQs
 
@@ -78,11 +78,11 @@ There are no hard and fast rules with this architecture, but there are a few got
     This boils down to, prioritize CSS for the visible viewport on first load
     by inlining those styles and then asynchronously load in additional styles.
     At the moment the web doesn't have any way to asynchronously load extra CSS
-    files. The only way you can do it is to use Javascript to add the CSS files
+    files. The only way you can do it is to use JavaScript to add the CSS files
     after the page has loaded / started to render.
 
     The reason we have a `<noscript>` tag is that if a user has
-    disabled Javascript, those extra files, loaded by Javascript, will never
+    disabled JavaScript, those extra files, loaded by JavaScript, will never
     be loaded. Meaning, if you still want the extra styles to loaded when JS
     is disabled, you simply add a link to them inside the `<noscript>` tag.
 
@@ -95,7 +95,7 @@ There are no hard and fast rules with this architecture, but there are a few got
     This architecture doesn't depend on JavaScript. *If* JavaScript is supported
     then we rely on a fetch library to handle network requests.
 
-    Essentially the noscript use is a small (and trivial) attempt at treating
+    Essentially the `noscript` use is a small (and trivial) attempt at treating
     JavaScript as a progressive enhancement.
 
 ## License
