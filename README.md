@@ -83,7 +83,7 @@ There are no hard and fast rules with this architecture, but there are a few got
 
     The reason we have a `<noscript>` tag is that if a user has
     disabled JavaScript, those extra files, loaded by JavaScript, will never
-    be loaded. Meaning, if you still want the extra styles to loaded when JS
+    be loaded. Meaning, if you still want the extra styles to be loaded when JS
     is disabled, you simply add a link to them inside the `<noscript>` tag.
 
     Because this project is aimed at progressively enhancing, this is a simple
