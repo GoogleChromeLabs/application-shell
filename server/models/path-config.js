@@ -8,7 +8,7 @@ var pathConfigs = {
     inlineStyles: getFileContents(['/styles/core.css']),
     remoteStyles: ['https://fonts.googleapis.com/css?family=Roboto:' +
       '400,300,700,500,400italic'],
-    remoteScripts: ['/scripts/static-page.js']
+    remoteScripts: ['/scripts/core.js']
   },
   '/url-1': {
     view: 'url-1',
@@ -16,7 +16,7 @@ var pathConfigs = {
     inlineStyles: getFileContents(['/styles/core.css']),
     remoteStyles: ['https://fonts.googleapis.com/css?family=Roboto:' +
       '400,300,700,500,400italic'],
-    remoteScripts: ['/scripts/static-page.js']
+    remoteScripts: ['/scripts/core.js']
   },
   '/url-2': {
     view: 'url-2',
@@ -24,7 +24,7 @@ var pathConfigs = {
     inlineStyles: getFileContents(['/styles/core.css']),
     remoteStyles: ['https://fonts.googleapis.com/css?family=Roboto:' +
       '400,300,700,500,400italic'],
-    remoteScripts: ['/scripts/static-page.js']
+    remoteScripts: ['/scripts/core.js']
   },
   '/app-shell': {
     view: '',

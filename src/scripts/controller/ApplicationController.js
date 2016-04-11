@@ -15,18 +15,18 @@
  * limitations under the License.
  */
 
-import Controller from './Controller';
+import BaseController from './BaseController';
 import RouterSingleton from '../libs/RouterSingleton';
 import PageController from './PageController';
 import NavDrawerView from './../view/NavDrawerView';
 
-export default class ApplicationController extends Controller {
+export default class ApplicationController extends BaseController {
 
   constructor() {
     super();
 
+    // Initialise the navigation drawer and add the toggle on click
     var navDrawer = new NavDrawerView();
-
     var sideNavToggleButton = document.querySelector('.js-toggle-menu');
     sideNavToggleButton.addEventListener('click', () => {
       navDrawer.toggle();

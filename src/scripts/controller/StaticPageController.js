@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-import Controller from './Controller';
+import BaseController from './BaseController';
 import NavDrawerView from './../view/NavDrawerView';
 
-export default class StaticPageController extends Controller {
+export default class StaticPageController extends BaseController {
 
   constructor() {
     super();

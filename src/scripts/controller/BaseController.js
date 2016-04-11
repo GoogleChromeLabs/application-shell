@@ -17,7 +17,7 @@
 
 import ToasterSingleton from '../libs/ToasterSingleton';
 
-export default class Controller {
+export default class BaseController {
 
   constructor(registerServiceWorker = true) {
     if (registerServiceWorker) {
