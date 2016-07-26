@@ -44,7 +44,7 @@ Once you've got a production build or development build of gulp done, start the
 server with:
 
 ```sh
-$ nodemon server/app.js
+$ nodemon app.js
 ```
 
 Alternatively, you can just run `npm run monitor`. The application shell should now be available on port `8080`.
