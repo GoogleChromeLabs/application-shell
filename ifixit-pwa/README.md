@@ -1,4 +1,4 @@
-# `sw-precache` App Shell Demo
+# iFixit PWA App Shell Demo
 
 Deployed version: https://ifixit-pwa.appspot.com/
 
