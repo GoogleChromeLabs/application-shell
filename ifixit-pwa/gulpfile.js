@@ -30,7 +30,7 @@ const sass = require('gulp-sass');
 const sequence = require('run-sequence');
 const source = require('vinyl-source-stream');
 const spawn = require('child_process').spawn;
-const swBuild = require('/Users/jeffy/git/sw-helpers/packages/sw-build/build/');
+const swBuild = require('sw-build');
 const uglify = require('gulp-uglify');
 
 const SRC_DIR = 'src';
