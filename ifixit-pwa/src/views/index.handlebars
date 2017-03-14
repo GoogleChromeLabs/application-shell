@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iFixit Progressive Web App</title>
+    <link rel="icon" href="/images/icon.png">
+    <link rel="apple-touch-icon" href="/images/icon.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1976D2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <base target="_blank">
+    <link rel="stylesheet" href="/rev/{{revManifest.[styles/all.css]}}">
+  </head>
+  <body>
+    <main>
+      <div>{{{reactHtml}}}</div>
+    </main>
+    <script>
+      window.__STATE__ = {{{state}}};
+    </script>
+    <script src="/rev/{{revManifest.[js/third-party.js]}}"></script>
+    <script src="/rev/{{revManifest.[js/app.js]}}"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        // Delay registration until after the page has loaded, to ensure that
+        // our precaching requests don't degrade the first visit experience.
+        // See https://developers.google.com/web/fundamentals/instant-and-offline/service-worker/registration
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/service-worker.js');
+        });
+      }
+    </script>
+  </body>
+</html>
