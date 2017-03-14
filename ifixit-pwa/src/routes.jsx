@@ -26,7 +26,7 @@ import Shell from './components/shell';
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={Guides}/>
-    <Route path="shell" component={Shell}/>
+    <Route path="app-shell" component={Shell}/>
     <Route path="guide/:guideId" component={Guide}/>
     <Route path="*" component={NotFound}/>
   </Route>

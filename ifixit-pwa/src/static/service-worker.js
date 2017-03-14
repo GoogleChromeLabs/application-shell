@@ -6,7 +6,7 @@ import swLib from 'sw-lib';
 swLib.cacheRevisionedAssets(manifest);
 
 // Route all navigations to the App Shell.
-swLib.router.registerNavigationRoute('/shell');
+swLib.router.registerNavigationRoute('/app-shell');
 
 swLib.router.registerRoute(
   new RegExp('^https://www\.ifixit\.com/api/2\.0'),

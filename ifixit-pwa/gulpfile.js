@@ -120,7 +120,7 @@ gulp.task('write-sw-manifest', () => {
       `${BUILD_DIR}/images/**/*`
     ],
     templatedUrls: {
-      '/shell': [
+      '/app-shell': [
         `${BUILD_DIR}/rev/js/**/*.js`,
         `${BUILD_DIR}/rev/styles/all*.css`,
         `${SRC_DIR}/views/index.handlebars`
