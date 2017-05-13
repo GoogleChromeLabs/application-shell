@@ -25,13 +25,12 @@ const gutil = require('gulp-util');
 const path = require('path');
 const resolve = require('rollup-plugin-node-resolve');
 const rev = require('gulp-rev');
-const rollup = require('rollup').rollup;
 const sass = require('gulp-sass');
 const sequence = require('run-sequence');
 const source = require('vinyl-source-stream');
 const spawn = require('child_process').spawn;
-const swBuild = require('sw-build');
 const uglify = require('gulp-uglify');
+const workboxBuild = require('workbox-build');
 
 const SRC_DIR = 'src';
 const BUILD_DIR = 'build';
@@ -111,39 +110,24 @@ gulp.task('version-assets', () => {
     .pipe(gulp.dest(BUILD_DIR));
 });
 
-gulp.task('write-sw-manifest', () => {
-  return swBuild.generateFileManifest({
-    dest: '/tmp/manifest.js',
-    globPatterns: [
-      `${BUILD_DIR}/rev/js/**/*.js`,
-      `${BUILD_DIR}/rev/styles/all*.css`,
-      `${BUILD_DIR}/images/**/*`
+gulp.task('service-worker', () => {
+  return workboxBuild.injectManifest({
+    swSrc: `${SRC_DIR}/static/service-worker.js`,
+    swDest: `${BUILD_DIR}/service-worker.js`,
+    globDirectory: BUILD_DIR,
+    staticFileGlobs: [
+      'rev/js/**/*.js',
+      'rev/styles/all*.css',
+      'images/**/*'
     ],
     templatedUrls: {
       '/app-shell': [
-        `${BUILD_DIR}/rev/js/**/*.js`,
-        `${BUILD_DIR}/rev/styles/all*.css`,
-        `${SRC_DIR}/views/index.handlebars`
+        'rev/js/**/*.js',
+        'rev/styles/all*.css',
+        '../src/views/index.handlebars'
       ]
-    },
-    rootDirectory: BUILD_DIR,
-    format: 'es',
+    }
   });
-});
-
-gulp.task('bundle-sw', ['write-sw-manifest'], () => {
-  return rollup({
-    // This should point to your unbundled service worker code.
-    entry: `${SRC_DIR}/static/service-worker.js`,
-    plugins: [resolve({
-      jsnext: true,
-      main: true,
-      browser: true,
-    })],
-  }).then((bundle) => bundle.write({
-    dest: `${BUILD_DIR}/service-worker.js`,
-    format: 'iife',
-  }));
 });
 
 gulp.task('build:dev', ['clean'], callback => {
@@ -151,7 +135,7 @@ gulp.task('build:dev', ['clean'], callback => {
   sequence(
     ['bundle-app', 'bundle-third-party', 'copy-static', 'sass'],
     'version-assets',
-    'bundle-sw',
+    'service-worker',
     callback
   );
 });
@@ -162,7 +146,7 @@ gulp.task('build:dist', ['clean'], callback => {
     ['bundle-app', 'bundle-third-party', 'copy-static', 'sass', 'lint'],
     'uglify-js',
     'version-assets',
-    'bundle-sw',
+    'service-worker',
     callback
   );
 });

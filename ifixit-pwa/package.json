@@ -39,13 +39,10 @@
     "redux": "^3.5.2",
     "redux-actions": "^0.9.1",
     "redux-promise": "^0.5.3",
-    "rollup": "^0.41.5",
-    "rollup-plugin-node-resolve": "^2.0.0",
     "run-sequence": "^1.2.1",
-    "sw-build": "0.0.16",
-    "sw-lib": "0.0.16",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "workbox-build": "0.0.1"
   },
   "engines": {
     "node": ">=4.0.0"
