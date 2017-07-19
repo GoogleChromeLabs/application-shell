@@ -1,7 +1,7 @@
 // Alternatively, use your own local copy of workbox-sw.prod.vX.Y.Z.js
-importScripts('https://unpkg.com/workbox-sw@0.0.1');
+importScripts('https://unpkg.com/workbox-sw@1.1.0');
 
-const workboxSW = new goog.SWLib();
+const workboxSW = new WorkboxSW();
 // Pass in an empty array for our dev environment service worker.
 // As part of the production build process, the `service-worker` gulp task will
 // automatically replace the empty array with the current the precache manifest.

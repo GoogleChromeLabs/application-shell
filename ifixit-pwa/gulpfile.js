@@ -23,7 +23,6 @@ const eslint = require('gulp-eslint');
 const gulp = require('gulp');
 const gutil = require('gulp-util');
 const path = require('path');
-const resolve = require('rollup-plugin-node-resolve');
 const rev = require('gulp-rev');
 const sass = require('gulp-sass');
 const sequence = require('run-sequence');
