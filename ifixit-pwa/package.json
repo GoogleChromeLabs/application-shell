@@ -42,7 +42,7 @@
     "run-sequence": "^1.2.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "workbox-build": "^1.1.0"
+    "workbox-build": "^2.0.0"
   },
   "engines": {
     "node": ">=4.0.0"

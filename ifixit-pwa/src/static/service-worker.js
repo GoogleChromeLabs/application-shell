@@ -1,5 +1,5 @@
 // Alternatively, use your own local copy of workbox-sw.prod.vX.Y.Z.js
-importScripts('https://unpkg.com/workbox-sw@1.1.0');
+importScripts('https://unpkg.com/workbox-sw@2.0.0/build/importScripts/workbox-sw.prod.v2.0.0.js');
 
 const workboxSW = new WorkboxSW();
 // Pass in an empty array for our dev environment service worker.
