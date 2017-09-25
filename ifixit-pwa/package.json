@@ -1,0 +1,53 @@
+{
+  "name": "ifixit-pwa",
+  "version": "2.0.0",
+  "description": "A Progressive Web App for browsing iFixit content.",
+  "main": "index.js",
+  "author": "Jeff Posnick <jeffy@google.com> (https://jeffy.info)",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^6.0.4",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.0.1",
+    "compression": "^1.7.0",
+    "del": "^2.2.0",
+    "eslint": "^2.11.1",
+    "eslint-config-google": "^0.5.0",
+    "eslint-plugin-react": "^5.1.1",
+    "express": "^4.15.3",
+    "express-force-https": "^1.0.0",
+    "express-handlebars": "^3.0.0",
+    "glob": "^7.1.2",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.0.10",
+    "gulp-eslint": "^2.0.0",
+    "gulp-rev": "^7.0.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-size": "^2.1.0",
+    "gulp-uglify": "^1.5.3",
+    "gulp-util": "^3.0.7",
+    "immutable": "^3.8.1",
+    "isomorphic-fetch": "^2.2.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.4.1",
+    "redux": "^3.7.2",
+    "redux-actions": "^0.9.1",
+    "redux-promise": "^0.5.3",
+    "run-sequence": "^1.2.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "workbox-build": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
