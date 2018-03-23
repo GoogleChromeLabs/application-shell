@@ -1,29 +1,30 @@
-// Alternatively, use your own local copy of workbox-sw.prod.vX.Y.Z.js
-importScripts('https://unpkg.com/workbox-sw@2.0.0/build/importScripts/workbox-sw.prod.v2.0.0.js');
+// This file will be bundled into a valid service worker via the 'bundle-sw' gulp task.
+// manifest.js will be created as part of the 'write-sw-manifest' gulp task.
+import manifest from '/tmp/manifest.js';
+import swLib from 'sw-lib';
 
-const workboxSW = new WorkboxSW();
-// Pass in an empty array for our dev environment service worker.
-// As part of the production build process, the `service-worker` gulp task will
-// automatically replace the empty array with the current the precache manifest.
-workboxSW.precache([]);
+swLib.cacheRevisionedAssets(manifest);
 
-// All navigation requests should be routed to the App Shell.
-workboxSW.router.registerNavigationRoute('/app-shell');
+// Route all navigations to the App Shell.
+swLib.router.registerNavigationRoute('/shell');
 
-// Use a stale-while-revalidate strategy for all iFixit API requests.
-workboxSW.router.registerRoute(
-  new RegExp('^https://www\\.ifixit\\.com/api/2\\.0'),
-  workboxSW.strategies.staleWhileRevalidate({cacheName: 'ifixit-api'})
+swLib.router.registerRoute(
+  new RegExp('^https://www\.ifixit\.com/api/2\.0'),
+  swLib.staleWhileRevalidate({
+    cacheName: 'ifixit-api',
+  })
 );
 
-// Use a cache-first strategy for the images, all of which have unique URLs.
-workboxSW.router.registerRoute(
-  new RegExp('^https://\\w+\\.cloudfront\\.net/'),
-  workboxSW.strategies.cacheFirst({
+swLib.router.registerRoute(
+  new RegExp('\.cloudfront\.net/'),
+  swLib.cacheFirst({
     cacheName: 'images',
     cacheExpiration: {maxEntries: 50},
     // The images are returned as opaque responses, with a status of 0.
     // Normally these wouldn't be cached; here we opt-in to caching them.
-    cacheableResponse: {statuses: [0]}
+    cacheableResponse: {statuses: [0]},
   })
 );
+
+self.addEventListener('install', () => self.skipWaiting());
+self.addEventListener('activate', () => self.clients.claim());

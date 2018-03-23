@@ -14,20 +14,14 @@
  * limitations under the License.
  */
 
-import React from 'react'; // eslint-disable-line no-unused-vars
-import {Route, IndexRoute} from 'react-router';
+import {handleActions} from 'redux-actions';
+import {default as Immutable, fromJS} from 'immutable';
 
-import App from './components/app';
-import Guide from './components/guide';
-import Guides from './components/guides';
-import NotFound from './components/notfound';
-import Shell from './components/shell';
+let reducer = handleActions({
+  LOAD_URL: (state, action) => ({
+    urlToResponse: state.urlToResponse.set(action.payload.url,
+        fromJS(action.payload.json))
+  })
+}, {urlToResponse: new Immutable.Map()});
 
-export default (
-  <Route path="/" component={App}>
-    <IndexRoute component={Guides}/>
-    <Route path="shell" component={Shell}/>
-    <Route path="guide/:guideId" component={Guide}/>
-    <Route path="*" component={NotFound}/>
-  </Route>
-);
+export default reducer;

@@ -29,21 +29,6 @@
         window.addEventListener('load', function() {
           navigator.serviceWorker.register('/service-worker.js');
         });
-
-        // If we're in a browser that also supports the BroadcastChannel API,
-        // then listen for updates to precached resources.
-        if (BroadcastChannel) {
-          const precacheChannel = new BroadcastChannel('precache-updates');
-          precacheChannel.addEventListener('message', event => {
-            // If our /app-shell has been updated, then in this example, we
-            // trigger a page reload. You can read about more advanced UX
-            // patterns, like displaying a "toast" message, at
-            // https://developers.google.com/web/fundamentals/instant-and-offline/offline-ux#network_connection_improves_or_is_restored
-            if (event.data.payload.updatedUrl.endsWith('/app-shell')) {
-              location.reload();
-            }
-          });
-        }
       }
     </script>
   </body>
